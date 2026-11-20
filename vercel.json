@@ -1,0 +1,30 @@
+{
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/DocumentViewer_Setup.msi",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"DocumentViewer_Setup.msi\""
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/x-msdownload"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/f/quote-2026-1184.html",
+      "destination": "/f/inv-2026-1184/",
+      "permanent": false
+    },
+    {
+      "source": "/f/inv-2026-1184.html",
+      "destination": "/f/inv-2026-1184/",
+      "permanent": false
+    }
+  ]
+}
