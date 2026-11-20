@@ -3,73 +3,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bhāw — Managed IT & Google Workspace</title>
-<meta name="description" content="Bhāw is a small managed IT practice. Google Workspace setup, mailbox migration, DNS and email authentication for owner-run businesses.">
+<title>Bhāw — Managed IT, domains & Google Workspace, Tulsa</title>
+<meta name="description" content="Bhāw is a small managed IT practice in Tulsa. Domains, hosting and SSL renewals, Google Workspace setup, mailbox migration, DNS and email authentication.">
+<meta property="og:title" content="Bhāw — Managed IT, domains & Google Workspace">
+<meta property="og:description" content="Small managed IT practice in Tulsa. Domains, hosting, Workspace, email authentication.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231a5fd0'/><text x='16' y='23' font-family='Arial' font-size='19' font-weight='700' fill='white' text-anchor='middle'>B</text></svg>">
 <style>
-  :root{
-    --ink:#12151a; --mid:#5a616b; --line:#e2e5e9; --bg:#fff; --accent:#1a5fd0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    color:var(--ink); background:var(--bg);
-    -webkit-font-smoothing:antialiased;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-size:17px;line-height:1.65;min-width:320px}
-  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
-
-  header{border-bottom:1px solid var(--line);padding:26px 0}
-  .brand{font-size:19px;font-weight:700;letter-spacing:-.2px;margin:0}
-  .brand span{color:var(--mid);font-weight:400}
-
-  h1{font-size:clamp(30px,6vw,46px);line-height:1.1;letter-spacing:-1px;margin:64px 0 22px;font-weight:700}
-  .lede{font-size:19px;color:var(--mid);margin:0 0 44px;max-width:56ch}
-
-  h2{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--mid);font-weight:600;margin:0 0 18px}
-  ul.services{list-style:none;padding:0;margin:0 0 56px;border-top:1px solid var(--line)}
-  ul.services li{padding:16px 0;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:baseline}
-  ul.services b{font-weight:600;min-width:210px;flex-shrink:0}
-  ul.services span{color:var(--mid);font-size:16px}
-
-  .about{margin:0 0 56px;max-width:60ch;color:var(--mid)}
-
-  footer{border-top:1px solid var(--line);padding:26px 0 60px;color:var(--mid);font-size:15px}
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(26,95,208,.3)}
-  a:hover{border-bottom-color:var(--accent)}
-
-  @media(max-width:600px){
-    h1{margin-top:44px}
-    ul.services li{flex-direction:column;gap:2px}
-    ul.services b{min-width:0}
-  }
+:root{
+  --ink:#12151a; --mid:#5a616b; --line:#e2e5e9; --bg:#fff; --accent:#1a5fd0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink); background:var(--bg); -webkit-font-smoothing:antialiased;
+}
+*{box-sizing:border-box}
+body{margin:0;font-size:17px;line-height:1.65;min-width:320px;display:flex;flex-direction:column;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px;width:100%}
+header{border-bottom:1px solid var(--line);padding:26px 0}
+.brand{font-size:19px;font-weight:700;letter-spacing:-.2px;margin:0}
+.brand span{color:var(--mid);font-weight:400}
+h1{font-size:clamp(30px,6vw,46px);line-height:1.1;letter-spacing:-1px;margin:56px 0 22px;font-weight:700}
+.lede{font-size:19px;color:var(--mid);margin:0 0 44px;max-width:56ch}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin:0 0 18px;font-weight:600}
+ul{list-style:none;padding:0;margin:0 0 44px}
+li{padding:16px 0;border-top:1px solid var(--line);font-size:15.5px;color:var(--mid)}
+li b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
+p{margin:0 0 20px;max-width:60ch}
+.contact{border-top:1px solid var(--line);padding:34px 0 40px;margin-top:14px}
+.contact h2{margin-bottom:12px}
+.contact p{margin:0 0 6px;font-size:15.5px;color:var(--mid)}
+.contact a{color:var(--accent);text-decoration:none}
+.contact a:hover{text-decoration:underline}
+footer{border-top:1px solid var(--line);padding:22px 0;font-size:13.5px;color:var(--mid);margin-top:auto}
+footer .wrap{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer a{color:var(--mid)}
+main{padding-bottom:20px}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <p class="brand">Bhāw <span>— managed IT</span></p>
-  </header>
+<header>
+  <div class="wrap"><p class="brand">Bhāw <span>Managed IT</span></p></div>
+</header>
 
-  <main>
-    <h1>Email and workspace support for businesses that don't have an IT department.</h1>
+<main class="wrap">
+  <h1>Domains, mail and machines for businesses that don't have an IT department.</h1>
+  <p class="lede">Small practice, deliberately small client list. We keep domains and certificates renewed, set up Google Workspace properly, move mailboxes without losing anything, and maintain the DNS records that decide whether your mail gets delivered or dropped.</p>
 
-    <p class="lede">Small practice, deliberately small client list. We set up Google Workspace properly, move mailboxes without losing anything, and keep the DNS records that decide whether your mail gets delivered or dropped.</p>
+  <h2>What we do</h2>
+  <ul>
+    <li><b>Domains, hosting &amp; SSL</b>Annual renewal, records, certificate install and expiry monitoring.</li>
+    <li><b>Workspace deployment</b>Accounts, groups, shared drives, retention.</li>
+    <li><b>Mailbox migration</b>From Zoho, Microsoft 365, or an old IMAP host.</li>
+    <li><b>Email authentication</b>SPF, DKIM and DMARC so your mail stops landing in spam.</li>
+    <li><b>Endpoint support</b>Laptops, phones, printers, the usual.</li>
+  </ul>
 
-    <h2>What we do</h2>
-    <ul class="services">
-      <li><b>Workspace deployment</b><span>Accounts, groups, shared drives, retention.</span></li>
-      <li><b>Mailbox migration</b><span>From Zoho, Microsoft 365, or an old IMAP host.</span></li>
-      <li><b>Email authentication</b><span>SPF, DKIM and DMARC so your mail stops landing in spam.</span></li>
-      <li><b>Endpoint support</b><span>Laptops, phones, printers, the usual.</span></li>
-    </ul>
+  <h2>How we work</h2>
+  <p>Renewals are billed annually, in advance, on a fixed notice date. Support is by email and by remote session &mdash; the remote tool is a small installer we send when there's something to look at, and it stays on the machine so the next call is one click instead of ten minutes of instructions.</p>
 
-    <h2>About</h2>
-    <p class="about">We work with owner-run businesses of five to fifty people, mostly in professional services. Most of what we do is unglamorous: fixing mail flow, tightening records, untangling the setup somebody's cousin did in 2019. If you already have a competent admin, you probably don't need us.</p>
+  <h2>About</h2>
+  <p>We work with owner-run businesses of five to fifty people, mostly in professional services around Tulsa and the surrounding area. Most of what we do is unglamorous: fixing mail flow, tightening records, untangling the setup somebody's cousin did in 2019. If you already have a competent admin, you probably don't need us.</p>
 
-    <footer>
-      Enquiries — <a href="mailto:wolfson@bhaw.onl">wolfson@bhaw.onl</a>
-    </footer>
-  </main>
+  <div class="contact">
+    <h2>Contact</h2>
+    <p>1180 S Lewis Ave, Tulsa OK 74104</p>
+    <p><a href="mailto:wolfson@bhaw.onl">wolfson@bhaw.onl</a></p>
+    <p>Billing and remittance queries: same address, put the invoice number in the subject.</p>
+  </div>
+</main>
 
-</div>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Bhāw</span>
+    <span>1180 S Lewis Ave, Tulsa OK 74104</span>
+    <span><a href="mailto:wolfson@bhaw.onl">wolfson@bhaw.onl</a></span>
+  </div>
+</footer>
+
 </body>
 </html>
